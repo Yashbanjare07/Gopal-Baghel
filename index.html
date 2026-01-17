@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बिजली वाला - Professional Electrician</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary-color: #ffd700; /* Gold */
+            --primary-dark: #e6c200;
+            --secondary-color: #0b1c2c; /* Dark Blue */
+            --secondary-light: #1a2f42;
+            --accent-color: #ff4500; /* Orange Red */
+            --accent-gradient: linear-gradient(135deg, #ff4500, #ff8c00);
+            --light-bg: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #fff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --card-hover-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Yantramanav', 'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--light-bg); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        /* --- Animations Keyframes --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(255, 69, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* Scroll Reveal Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Splash Screen --- */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), #000);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+            color: white;
+            text-align: center;
+        }
+
+        .splash-content img {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        .splash-content h1 { font-size: 2.5rem; margin-bottom: 5px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; }
+        .splash-content p { font-size: 1.2rem; letter-spacing: 2px; color: #ddd; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-color);
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        .logo i { animation: flash 2s infinite; color: #fff; }
+
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav ul li a { 
+            color: var(--text-light); text-decoration: none; font-weight: 500; 
+            transition: 0.3s; position: relative;
+        }
+        nav ul li a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--primary-color); transition: width 0.3s;
+        }
+        nav ul li a:hover { color: var(--primary-color); }
+        nav ul li a:hover::after { width: 100%; }
+
+        .lang-switch {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            color: var(--secondary-color);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+        }
+        .lang-switch:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5); }
+
+        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- Hero Section (Design Updated with Electrician Image) --- */
+        .hero {
+            height: 100vh;
+            /* CHANGE 1: Updated Image to Real Electrician Working */
+            background: linear-gradient(rgba(11, 28, 44, 0.85), rgba(11, 28, 44, 0.75)), url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--secondary-color) 120%);
+            pointer-events: none;
+        }
+
+        .hero h1 { 
+            font-size: 4rem; color: var(--text-light); margin-bottom: 20px; 
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8); z-index: 1;
+            animation: slideUp 1s ease-out;
+        }
+        .hero span { 
+            color: var(--primary-color); 
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+        .hero p { 
+            color: #f0f0f0; font-size: 1.4rem; max-width: 700px; margin-bottom: 40px; 
+            z-index: 1; animation: slideUp 1s ease-out 0.3s backwards;
+        }
+        
+        .cta-button {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4);
+            z-index: 1;
+            animation: slideUp 1s ease-out 0.6s backwards, pulseGlow 2s infinite 2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cta-button:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.6); 
+            background: linear-gradient(135deg, #ff8c00, #ff4500);
+        }
+
+        /* --- About Owner Section --- */
+        .about-owner {
+            padding: 100px 10%;
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-owner::after {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 50%; height: 200%;
+            background: rgba(255, 215, 0, 0.05); transform: rotate(-15deg); pointer-events: none;
+        }
+
+        .about-img {
+            flex: 1; min-width: 300px; position: relative; z-index: 2;
+        }
+        .about-img img {
+            width: 100%; border-radius: 15px;
+            box-shadow: 20px 20px 0 var(--primary-color), 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid white;
+            transition: transform 0.3s;
+        }
+        .about-img:hover img { transform: scale(1.02) rotate(-1deg); }
+
+        .about-text { flex: 1; min-width: 300px; z-index: 2; }
+        .about-text h2 { font-size: 2.8rem; color: var(--secondary-color); margin-bottom: 10px; line-height: 1.2; }
+        .about-text h3 { color: var(--accent-color); margin-bottom: 25px; font-size: 1.5rem; font-weight: 600; }
+        .about-text p { margin-bottom: 15px; color: #555; font-size: 1.1rem; }
+        
+        .exp-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(11, 28, 44, 0.3);
+            transition: 0.3s;
+        }
+        .exp-badge:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(11, 28, 44, 0.4); }
+
+        /* --- Services --- */
+        .services { padding: 100px 10%; background-color: #f0f4f8; text-align: center; }
+        .section-title { 
+            font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 60px; 
+            position: relative; display: inline-block; font-weight: 700;
+        }
+        .section-title::after { 
+            content: ''; display: block; width: 60px; height: 5px; 
+            background: var(--accent-color); margin: 15px auto 0; border-radius: 10px;
+            transition: width 0.3s;
+        }
+        .section-title:hover::after { width: 100px; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .service-card {
+            background: white; padding: 40px 30px; border-radius: 15px;
+            box-shadow: var(--card-shadow); border: none;
+            transition: all 0.4s ease; cursor: pointer; position: relative; overflow: hidden;
+            z-index: 1;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #1a2f42 100%);
+            z-index: -1; opacity: 0; transition: opacity 0.4s;
+        }
+        .service-card:hover { transform: translateY(-15px); box-shadow: var(--card-hover-shadow); }
+        .service-card:hover::before { opacity: 1; }
+        
+        .service-card i { 
+            font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 25px; 
+            background: #f4f4f4; width: 90px; height: 90px; line-height: 90px; 
+            border-radius: 50%; transition: 0.4s;
+        }
+        .service-card:hover i { background: var(--primary-color); color: white; transform: rotateY(360deg); }
+        
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--secondary-color); transition: 0.3s; }
+        .service-card p { color: #666; transition: 0.3s; }
+        
+        .service-card:hover h3, .service-card:hover p { color: white; }
+
+        .service-card .read-more {
+            margin-top: 20px; display: inline-block; color: var(--accent-color); 
+            font-weight: bold; font-size: 0.9rem; transition: 0.3s;
+            background: rgba(255, 69, 0, 0.1); padding: 8px 15px; border-radius: 20px;
+        }
+        .service-card:hover .read-more { background: white; color: var(--secondary-color); }
+
+        /* --- Gallery Section --- */
+        .gallery { padding: 100px 10%; background-color: white; text-align: center; }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-top: 50px;
+        }
+        .gallery-item {
+            position: relative; overflow: hidden; border-radius: 15px;
+            height: 280px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.15); }
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white; opacity: 0; transition: opacity 0.4s;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+            text-align: left;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay h4 { font-size: 1.4rem; color: var(--primary-color); transform: translateY(20px); transition: 0.4s 0.1s; }
+        .gallery-overlay p { font-size: 1rem; transform: translateY(20px); transition: 0.4s 0.2s; }
+        .gallery-item:hover .gallery-overlay h4, .gallery-item:hover .gallery-overlay p { transform: translateY(0); }
+
+        /* --- Social Media Section --- */
+        .social-media {
+            padding: 80px 10%; background-color: #f8f9fa; text-align: center;
+        }
+        .social-icons { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
+        .social-icon {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: white; display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; color: var(--secondary-color);
+            transition: all 0.4s; text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative; overflow: hidden;
+        }
+        .social-icon::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            z-index: -1; transform: translateY(100%); transition: transform 0.4s;
+        }
+        .social-icon:hover { color: white; transform: translateY(-8px) rotate(360deg); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .social-icon:hover::before { transform: translateY(0); }
+        
+        .social-icon.youtube:hover { background: #FF0000; }
+        .social-icon.facebook:hover { background: #1877F2; }
+        .social-icon.instagram:hover { background: #E1306C; }
+
+        /* --- Why Us --- */
+        .why-us { 
+            padding: 100px 10%; 
+            background: linear-gradient(135deg, var(--secondary-color), #050e16); 
+            color: white; text-align: center; 
+        }
+        .why-us .section-title { color: white; }
+        .features-container { display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 60px; gap: 40px; }
+        
+        .feature-box { text-align: center; max-width: 300px; transition: 0.3s; }
+        .feature-box:hover { transform: translateY(-10px); }
+        
+        .feature-box i { 
+            color: var(--secondary-color); font-size: 2.5rem; margin-bottom: 20px; 
+            background: var(--primary-color); padding: 25px; border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); animation: float 3s ease-in-out infinite;
+        }
+        .feature-box h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--primary-color); }
+        .feature-box p { color: #ccc; }
+
+        /* --- Contact --- */
+        .contact { 
+            padding: 100px 10%; display: flex; flex-wrap: wrap; gap: 60px; 
+            justify-content: center; background: white; 
+        }
+        .contact-info h2 { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .info-item { display: flex; align-items: center; margin-bottom: 25px; font-size: 1.1rem; }
+        .info-item i { 
+            color: white; background: var(--accent-color); width: 45px; height: 45px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; margin-right: 20px; box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        .contact-form { 
+            background: white; padding: 50px; border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-top: 6px solid var(--accent-color);
+            transform: translateY(0); transition: 0.3s;
+        }
+        .contact-form:hover { transform: translateY(-10px); }
+
+        .form-group input, .form-group textarea, .form-group select { 
+            width: 100%; padding: 18px; border: 2px solid #eee; margin-bottom: 25px; 
+            border-radius: 10px; font-size: 1rem; transition: 0.3s; background: #f9f9f9;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--accent-color); outline: none; background: white;
+            box-shadow: 0 0 10px rgba(255, 69, 0, 0.1);
+        }
+
+        .submit-btn { 
+            width: 100%; padding: 18px; 
+            background: var(--secondary-color); 
+            color: white; border: none; font-weight: bold; cursor: pointer; 
+            font-size: 1.1rem; border-radius: 50px; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .submit-btn:hover { 
+            background: var(--accent-color); 
+            transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 69, 0, 0.3); 
+        }
+
+        /* --- Footer --- */
+        footer { background: #050e16; color: #888; text-align: center; padding: 40px 20px; border-top: 1px solid #222; }
+
+        /* --- Modal (Popup) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary-color), #1a2f42);
+            color: white; padding: 25px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-header h3 { font-size: 1.5rem; }
+        .modal-body { padding: 40px; }
+        .close-btn { font-size: 1.8rem; cursor: pointer; color: white; transition: 0.3s; }
+        .close-btn:hover { color: var(--accent-color); transform: rotate(90deg); }
+
+        /* CONTACT OPTION BUTTONS */
+        .contact-option-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 15px; margin-bottom: 15px;
+            border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            transition: 0.3s; border: none; cursor: pointer; color: white;
+        }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #128C7E; transform: scale(1.02); }
+        .btn-email { background-color: #EA4335; }
+        .btn-email:hover { background-color: #B93327; transform: scale(1.02); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--secondary-color); flex-direction: column; padding: 20px 0; }
+            nav ul.active { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .about-owner { flex-direction: column; text-align: center; }
+            .about-img img { box-shadow: 10px 10px 0 var(--primary-color); }
+            .contact { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <img src="gimage3.jpeg" alt="Owner Photo">
+            <h1 data-i18n="owner_name">गोपाल बघेल </h1>
+            <p>Electrician/Lighting Designer/Electrical Contractor </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-bolt"></i>
+            <span data-i18n="logo">गोपाल इलेक्ट्रीशियन </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="lang-switch" onclick="toggleLanguage()">EN / HI</button>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#home" onclick="toggleMenu()" data-i18n="nav_home">होम</a></li>
+                <li><a href="#services" onclick="toggleMenu()" data-i18n="nav_services">सेवाएं</a></li>
+                <li><a href="#about-owner" onclick="toggleMenu()" data-i18n="nav_about">परिचय</a></li>
+                <li><a href="#gallery" onclick="toggleMenu()" data-i18n="nav_gallery">गैलरी</a></li>
+                <li><a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">संपर्क करें</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <h1 data-i18n="hero_title">आपके घर की <span>बिजली</span>, हमारी जिम्मेदारी</h1>
+        <p data-i18n="hero_desc">प्रोफेशनल इलेक्ट्रिशियन | 24/7 आपातकालीन सेवा | सुरक्षित वायरिंग</p>
+        <a href="#contact" class="cta-button" data-i18n="btn_call"><i class="fas fa-phone"></i> अभी कॉल करें</a>
+    </section>
+
+    <!-- About Owner Section -->
+    <section class="about-owner reveal" id="about-owner">
+        <div class="about-img">
+            <img src="gimage1.jpeg" alt="Electrician Owner">
+        </div>
+        <div class="about-text">
+            <h2 data-i18n="about_title">नमस्ते, मैं गोपाल हूँ</h2>
+            <h3 data-i18n="about_subtitle">आपका भरोसेमंद "इलेक्ट्रिशियन"</h3>
+            <p data-i18n="about_p1">पिछले 10 वर्षों से मैं इलेक्ट्रिकल फील्ड में काम कर रहा हूँ। मेरा उद्देश्य केवल पैसे कमाना नहीं, बल्कि हर घर को सुरक्षित और रोशन रखना है।</p>
+            <p data-i18n="about_p2">चाहे छोटी सी स्विच रिपेयरिंग हो या पूरी बिल्डिंग की वायरिंग, मैं हर काम को पूरी ईमानदारी और सुरक्षा मानकों (Safety Standards) के साथ करता हूँ।</p>
+            <div class="exp-badge" data-i18n="exp_badge">10+ साल का अनुभव</div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services reveal" id="services">
+        <h2 class="section-title" data-i18n="services_title">हमारी सेवाएं</h2>
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card" onclick="openServiceModal('wiring')">
+                <i class="fas fa-home"></i>
+                <h3 data-i18n="s1_title">हाउस वायरिंग</h3>
+                <p data-i18n="s1_desc">नए घर की पूरी वायरिंग और मरम्मत।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 2 -->
+            <div class="service-card" onclick="openServiceModal('appliance')">
+                <i class="fas fa-tools"></i>
+                <h3 data-i18n="s2_title">उपकरण मरम्मत</h3>
+                <p data-i18n="s2_desc">पंखे, गीजर, कूलर की मरम्मत।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 3 -->
+            <div class="service-card" onclick="openServiceModal('inverter')">
+                <i class="fas fa-charging-station"></i>
+                <h3 data-i18n="s3_title">इन्वर्टर इंस्टॉलेशन</h3>
+                <p data-i18n="s3_desc">बैटरी और इन्वर्टर सेटअप।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 4 -->
+            <div class="service-card" onclick="openServiceModal('shortcircuit')">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3 data-i18n="s4_title">शॉर्ट सर्किट फिक्स</h3>
+                <p data-i18n="s4_desc">इमरजेंसी ट्रिपिंग समस्या समाधान।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 5 -->
+            <div class="service-card" onclick="openServiceModal('lighting')">
+                <i class="fas fa-lightbulb"></i>
+                <h3 data-i18n="s5_title">फैंसी लाइटिंग</h3>
+                <p data-i18n="s5_desc">झूमर और एलईडी स्ट्रिप लाइट्स।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 6 -->
+            <div class="service-card" onclick="openServiceModal('switch')">
+                <i class="fas fa-plug"></i>
+                <h3 data-i18n="s6_title">स्विच बोर्ड</h3>
+                <p data-i18n="s6_desc">पुराने बोर्ड बदलना और रिपेयर।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery reveal" id="gallery">
+        <h2 class="section-title" data-i18n="gallery_title">हमारा काम (Gallery)</h2>
+        <p data-i18n="gallery_desc" style="margin-bottom: 20px; color: #666;">हमारे द्वारा किए गए कुछ बेहतरीन लाइटिंग और वायरिंग प्रोजेक्ट्स</p>
+        <div class="gallery-grid">
+            <!-- 1. Living Room -->
+            <div class="gallery-item">
+                <img src="gallery1.jpg" alt="Living Room">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g1_title">लक्ज़री लिविंग रूम</h4>
+                    <p data-i18n="g1_desc">सीलिंग और कोव लाइटिंग सेटअप</p>
+                </div>
+            </div>
+            <!-- 2. Kitchen -->
+            <div class="gallery-item">
+                <img src="gallery2.jpg" alt="Kitchen">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g2_title">मॉडर्न किचन</h4>
+                    <p data-i18n="g2_desc">अंडर-कैबिनेट और स्पॉट लाइट्स</p>
+                </div>
+            </div>
+            <!-- 3. Outdoor -->
+            <div class="gallery-item">
+                <img src="gallery3.jpg" alt="Outdoor">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g3_title">आउटडोर गार्डन</h4>
+                    <p data-i18n="g3_desc">वाटरप्रूफ गार्डन और पाथवे लाइट्स</p>
+                </div>
+            </div>
+            <!-- 4. Office -->
+            <div class="gallery-item">
+                <img src="gallery4.jpg" alt="Office">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g4_title">ऑफिस वायरिंग</h4>
+                    <p data-i18n="g4_desc">कमर्शियल पैनल और सर्वर रूम</p>
+                </div>
+            </div>
+            <!-- 5. Chandelier -->
+            <div class="gallery-item">
+                <img src="gallery5.jpg" alt="Chandelier">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g5_title">झूमर इंस्टॉलेशन</h4>
+                    <p data-i18n="g5_desc">भारी और नाजुक झूमर फिटिंग</p>
+                </div>
+            </div>
+            <!-- 6. Switch Board -->
+            <div class="gallery-item">
+                <img src="gallery6.jpg" alt="Switchboard">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g6_title">मॉड्यूलर स्विच</h4>
+                    <p data-i18n="g6_desc">प्रीमियम ग्लास पैनल स्विच</p>
+                </div>
+            </div>
+            <!-- 7. MCB Box -->
+            <div class="gallery-item">
+                <img src="gallery7.jpg" alt="MCB Box">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g7_title">डिस्ट्रीब्यूशन बॉक्स</h4>
+                    <p data-i18n="g7_desc">सुरक्षित MCB और सर्किट वायरिंग</p>
+                </div>
+            </div>
+            <!-- 8. Bedroom -->
+            <div class="gallery-item">
+                <img src="gallery8.jpg" alt="Bedroom">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g8_title">बेडरूम लाइटिंग</h4>
+                    <p data-i18n="g8_desc">वार्म एम्बियन्स लाइट्स</p>
+                </div>
+            </div>
+            <!-- 9. Shop -->
+            <div class="gallery-item">
+                <img src="gallery9.jpg" alt="Shop">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g9_title">दुकान की वायरिंग</h4>
+                    <p data-i18n="g9_desc">शोरूम और दुकान की लाइटिंग</p>
+                </div>
+            </div>
+            <!-- 10. Staircase -->
+            <div class="gallery-item">
+                <img src="gallery10.jpg" alt="Stairs">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g10_title">सीढ़ियों की लाइट्स</h4>
+                    <p data-i18n="g10_desc">ऑटोमैटिक सेंसर लाइट्स</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media reveal">
+        <h2 class="section-title" data-i18n="social_title">हमसे सोशल मीडिया पर जुड़ें</h2>
+        <div class="social-icons">
+            <a href="https://youtube.com/@gopalbaghel2?si=BVe1zt01DAK46_tk" target="_blank" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1PJ9fr398m/" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/gopalbaghelofficial?igsh=YWxuYmpjaGEwZ2lh" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us reveal" id="why-us">
+        <h2 class="section-title" data-i18n="why_title">हमें क्यों चुनें?</h2>
+        <div class="features-container">
+            <div class="feature-box">
+                <i class="fas fa-user-shield"></i>
+                <h3 data-i18n="w1_title">सुरक्षित काम</h3>
+                <p data-i18n="w1_desc">100% सुरक्षा मानकों का पालन।</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-clock"></i>
+                <h3 data-i18n="w2_title">समय पर सेवा</h3>
+                <p data-i18n="w2_desc">30-60 मिनट में त्वरित सेवा।</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-rupee-sign"></i>
+                <h3 data-i18n="w3_title">किफायती दाम</h3>
+                <p data-i18n="w3_desc">पारदर्शी और उचित मूल्य।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (UPDATED FORM) -->
+    <section class="contact reveal" id="contact">
+        <div class="contact-info">
+            <h2 data-i18n="contact_title">संपर्क करें</h2>
+            <p data-i18n="contact_desc">किसी भी बिजली समस्या के लिए बेझिझक संपर्क करें।</p>
+            <br>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>+91 62679 71935</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span>gopalbaghel2311@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span data-i18n="address">ग्राम - सेवती, पोस्ट-हिर्री, दुर्ग (छ.ग.)</span>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <input type="text" id="c-name" placeholder="Name / नाम" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="c-phone" placeholder="Mobile No. / मोबाइल" required>
+                </div>
+                <div class="form-group">
+                    <select id="c-service">
+                        <option value="Wiring">Wiring / वायरिंग</option>
+                        <option value="Repair">Repair / रिपेयरिंग</option>
+                        <option value="Installation">Installation / इंस्टॉलेशन</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="c-msg" rows="4" placeholder="Message / संदेश..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-i18n="btn_book">बुक करें</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Created by Yash Banjare. All rights reserved.</p>
+    </footer>
+
+    <!-- Service Details Modal -->
+    <div id="serviceModal" class="modal" onclick="if(event.target === this) closeModal('serviceModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Service Name</h3>
+                <span class="close-btn" onclick="closeModal('serviceModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalDesc">Description goes here.</p>
+                <div class="modal-details">
+                    <h4 data-i18n="modal_includes">क्या शामिल है:</h4>
+                    <ul id="modalIncludes">
+                        <!-- Dynamic List -->
+                    </ul>
+                    <h4 data-i18n="modal_pricing">अनुमानित मूल्य:</h4>
+                    <p id="modalPrice" style="font-weight: bold; color: var(--secondary-color);">₹500 onwards</p>
+                </div>
+                <br>
+                <a href="#contact" onclick="closeModal('serviceModal')" class="call-btn" style="display:block; text-align:center;" data-i18n="btn_book_now">अभी बुक करें</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Option Modal (NEW) -->
+    <div id="contactOptionModal" class="modal" onclick="if(event.target === this) closeModal('contactOptionModal')">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Send Request via...</h3>
+                <span class="close-btn" onclick="closeModal('contactOptionModal')">&times;</span>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p style="margin-bottom: 20px;">आप अपनी रिक्वेस्ट कैसे भेजना चाहते हैं?</p>
+                
+                <button onclick="sendToWhatsapp()" class="contact-option-btn btn-whatsapp">
+                    <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> WhatsApp
+                </button>
+                
+                <button onclick="sendToEmail()" class="contact-option-btn btn-email">
+                    <i class="fas fa-envelope" style="margin-right: 10px;"></i> Email
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // --- Splash Screen Logic ---
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800); 
+            }, 3000); 
+        });
+
+        // --- Scroll Reveal Logic (New) ---
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        // Trigger once on load
+        reveal();
+
+        // --- Data & Translations ---
+        const translations = {
+            'hi': {
+                logo: 'गोपाल इलेक्ट्रिशियन ',
+                nav_home: 'होम', nav_services: 'सेवाएं', nav_about: 'परिचय', nav_gallery: 'गैलरी', nav_why: 'क्यों चुनें?', nav_contact: 'संपर्क करें',
+                owner_name: 'गोपाल बघेल',
+                hero_title: 'आपके घर की <span>बिजली</span>, हमारी जिम्मेदारी',
+                hero_desc: 'प्रोफेशनल इलेक्ट्रिशियन | 24/7 आपातकालीन सेवा | सुरक्षित वायरिंग',
+                btn_call: 'अभी कॉल करें',
+                
+                about_title: 'नमस्ते, मैं गोपाल  हूँ',
+                about_subtitle: 'आपका भरोसेमंद "बिजली वाला"',
+                about_p1: 'पिछले 10 वर्षों से मैं इलेक्ट्रिकल फील्ड में काम कर रहा हूँ। मेरा उद्देश्य केवल पैसे कमाना नहीं, बल्कि हर घर को सुरक्षित और रोशन रखना है।',
+                about_p2: 'चाहे छोटी सी स्विच रिपेयरिंग हो या पूरी बिल्डिंग की वायरिंग, मैं हर काम को पूरी ईमानदारी और सुरक्षा मानकों (Safety Standards) के साथ करता हूँ।',
+                exp_badge: '10+ साल का अनुभव',
+
+                services_title: 'हमारी सेवाएं',
+                read_more: 'विवरण देखें →',
+                s1_title: 'हाउस वायरिंग', s1_desc: 'नए घर की पूरी वायरिंग और मरम्मत।',
+                s2_title: 'उपकरण मरम्मत', s2_desc: 'पंखे, गीजर, कूलर की मरम्मत।',
+                s3_title: 'इन्वर्टर इंस्टॉलेशन', s3_desc: 'बैटरी और इन्वर्टर सेटअप।',
+                s4_title: 'शॉर्ट सर्किट फिक्स', s4_desc: 'इमरजेंसी ट्रिपिंग समस्या समाधान।',
+                s5_title: 'फैंसी लाइटिंग', s5_desc: 'झूमर और एलईडी स्ट्रिप लाइट्स।',
+                s6_title: 'स्विच बोर्ड', s6_desc: 'पुराने बोर्ड बदलना और रिपेयर।',
+                
+                gallery_title: 'हमारा काम (Gallery)', gallery_desc: 'हमारे द्वारा किए गए कुछ बेहतरीन प्रोजेक्ट्स',
+                g1_title: 'लक्ज़री लिविंग रूम', g1_desc: 'सीलिंग और कोव लाइटिंग सेटअप',
+                g2_title: 'मॉडर्न किचन', g2_desc: 'अंडर-कैबिनेट और स्पॉट लाइट्स',
+                g3_title: 'आउटडोर गार्डन', g3_desc: 'वाटरप्रूफ गार्डन और पाथवे लाइट्स',
+                g4_title: 'ऑफिस वायरिंग', g4_desc: 'कमर्शियल पैनल और सर्वर रूम वायरिंग',
+                g5_title: 'झूमर इंस्टॉलेशन', g5_desc: 'भारी और नाजुक झूमर फिटिंग',
+                g6_title: 'मॉड्यूलर स्विच', g6_desc: 'प्रीमियम ग्लास पैनल स्विच',
+                g7_title: 'डिस्ट्रीब्यूशन बॉक्स', g7_desc: 'सुरक्षित MCB और सर्किट वायरिंग',
+                g8_title: 'बेडरूम लाइटिंग', g8_desc: 'वार्म एम्बियन्स लाइट्स',
+                g9_title: 'दुकान की वायरिंग', g9_desc: 'शोरूम और दुकान की लाइटिंग',
+                g10_title: 'सीढ़ियों की लाइट्स', g10_desc: 'ऑटोमैटिक सेंसर लाइट्स',
+                
+                social_title: 'हमसे सोशल मीडिया पर जुड़ें',
+                why_title: 'हमें क्यों चुनें?',
+                w1_title: 'सुरक्षित काम', w1_desc: '100% सुरक्षा मानकों का पालन।',
+                w2_title: 'समय पर सेवा', w2_desc: '30-60 मिनट में त्वरित सेवा।',
+                w3_title: 'किफायती दाम', w3_desc: 'पारदर्शी और उचित मूल्य।',
+                contact_title: 'संपर्क करें', contact_desc: 'किसी भी बिजली समस्या के लिए बेझिझक संपर्क करें।',
+                address: 'ग्राम - सेवती, पोस्ट-हिर्री, दुर्ग (छ.ग.)',
+                btn_book: 'बुक करें',
+                modal_includes: 'क्या शामिल है:', modal_pricing: 'अनुमानित मूल्य:', btn_book_now: 'अभी बुक करें'
+            },
+            'en': {
+                logo: 'Gopal Electrician',
+                nav_home: 'Home', nav_services: 'Services', nav_about: 'About', nav_gallery: 'Gallery', nav_why: 'Why Us?', nav_contact: 'Contact',
+                owner_name: 'Gopal Baghel',
+                hero_title: 'Your Home <span>Electricity</span>, Our Responsibility',
+                hero_desc: 'Professional Electrician | 24/7 Emergency Service | Safe Wiring',
+                btn_call: 'Call Now',
+
+                about_title: 'Hi, I am Gopal',
+                about_subtitle: 'Your Trusted "Electrician Wala"',
+                about_p1: 'I have been working in the electrical field for the past 10 years. My goal is not just to earn money, but to keep every home safe and lit.',
+                about_p2: 'Whether it\'s a small switch repair or full building wiring, I do every job with complete honesty and safety standards.',
+                exp_badge: '10+ Years Experience',
+
+                services_title: 'Our Services',
+                read_more: 'View Details →',
+                s1_title: 'House Wiring', s1_desc: 'Complete wiring for new homes & repairs.',
+                s2_title: 'Appliance Repair', s2_desc: 'Fans, Geysers, Coolers repair.',
+                s3_title: 'Inverter Installation', s3_desc: 'Battery and Inverter setup.',
+                s4_title: 'Short Circuit Fix', s4_desc: 'Emergency tripping solutions.',
+                s5_title: 'Fancy Lighting', s5_desc: 'Chandeliers and LED strip lights.',
+                s6_title: 'Switch Board', s6_desc: 'Board replacement and repairs.',
+                
+                gallery_title: 'Our Work (Gallery)', gallery_desc: 'Some of our finest lighting and wiring projects',
+                g1_title: 'Luxury Living Room', g1_desc: 'Ceiling and Cove lighting setup',
+                g2_title: 'Modern Kitchen', g2_desc: 'Under-cabinet and spot lights',
+                g3_title: 'Outdoor Garden', g3_desc: 'Waterproof garden & pathway lights',
+                g4_title: 'Office Wiring', g4_desc: 'Commercial panel & server room wiring',
+                g5_title: 'Chandelier Install', g5_desc: 'Heavy & delicate chandelier fitting',
+                g6_title: 'Modular Switch', g6_desc: 'Premium glass panel switches',
+                g7_title: 'Distribution Box', g7_desc: 'Safe MCB & circuit wiring',
+                g8_title: 'Bedroom Lighting', g8_desc: 'Warm ambience lights',
+                g9_title: 'Shop Wiring', g9_desc: 'Showroom & shop lighting',
+                g10_title: 'Staircase Lights', g10_desc: 'Automatic sensor lights',
+
+                social_title: 'Connect on Social Media',
+                why_title: 'Why Choose Us?',
+                w1_title: 'Safety First', w1_desc: '100% adherence to safety standards.',
+                w2_title: 'On-Time Service', w2_desc: 'Quick service within 30-60 mins.',
+                w3_title: 'Affordable Rates', w3_desc: 'Transparent and fair pricing.',
+                contact_title: 'Contact Us', contact_desc: 'Feel free to contact for any electrical issues.',
+                address: 'Vill. Sewati, Post-Hirri, Durg, (C.G.)',
+                btn_book: 'Book Now',
+                modal_includes: 'What\'s Included:', modal_pricing: 'Estimated Price:', btn_book_now: 'Book Now'
+            }
+        };
+
+        const serviceDetails = {
+            'wiring': {
+                hi: { title: 'हाउस वायरिंग (House Wiring)', desc: 'हम नए मकानों के लिए कम्प्लीट वायरिंग पैकेज और पुराने घरों के लिए री-वायरिंग सेवा प्रदान करते हैं। हम केवल ISI मार्क वाले सुरक्षित तारों का उपयोग करते हैं।', includes: ['कंसील्ड वायरिंग', 'मेन बोर्ड इंस्टॉलेशन', 'अर्थिंग सेटअप', 'फ्यूज और MCB फिटिंग'], price: '₹15 प्रति स्क्वायर फीट से शुरू' },
+                en: { title: 'House Wiring', desc: 'We provide complete wiring packages for new homes and re-wiring for old ones. We strictly use ISI marked safe wires.', includes: ['Concealed Wiring', 'Main Board Installation', 'Earthing Setup', 'Fuse & MCB Fitting'], price: 'Starts at ₹15 per sq. ft.' }
+            },
+            'appliance': {
+                hi: { title: 'उपकरण मरम्मत (Appliance Repair)', desc: 'आपके घर के खराब बिजली उपकरण जैसे पंखा, कूलर, मोटर या गीजर को हम तुरंत ठीक करते हैं।', includes: ['मोटर वाइंडिंग', 'कैपेसिटर बदलना', 'पार्ट्स रिप्लेसमेंट', 'सर्विसिंग और सफाई'], price: '₹200 से शुरू (पार्ट्स अलग)' },
+                en: { title: 'Appliance Repair', desc: 'We quickly fix faulty home appliances like fans, coolers, motors, or geysers.', includes: ['Motor Winding', 'Capacitor Change', 'Parts Replacement', 'Servicing & Cleaning'], price: 'Starts at ₹200 (Parts extra)' }
+            },
+            'inverter': {
+                hi: { title: 'इन्वर्टर और बैटरी (Inverter Setup)', desc: 'बिजली जाने पर भी घर रोशन रखें। हम नई बैटरी इंस्टॉलेशन और पुराने इन्वर्टर की सर्विसिंग करते हैं।', includes: ['नई बैटरी इंस्टॉलेशन', 'इन्वर्टर कनेक्शन', 'डिस्टिल्ड वाटर चेक', 'लोड टेस्टिंग'], price: '₹500 (इंस्टॉलेशन चार्ज)' },
+                en: { title: 'Inverter & Battery', desc: 'Keep your home lit even during power cuts. We handle new installations and servicing.', includes: ['New Battery Installation', 'Inverter Connection', 'Distilled Water Check', 'Load Testing'], price: '₹500 (Installation Charge)' }
+            },
+            'shortcircuit': {
+                hi: { title: 'शॉर्ट सर्किट फिक्स (Emergency Fix)', desc: 'अगर आपके घर की लाइट बार-बार जा रही है या MCB ट्रिप हो रही है, तो यह खतरनाक हो सकता है। हम इसे जड़ से ठीक करते हैं।', includes: ['फॉल्ट ढूंढना', 'जले हुए तार बदलना', 'MCB रिप्लेसमेंट', 'लोड बैलेंसिंग'], price: '₹350 से शुरू' },
+                en: { title: 'Short Circuit Fix', desc: 'If your lights flicker or MCB trips frequently, it can be dangerous. We fix the root cause.', includes: ['Fault Finding', 'Burnt Wire Replacement', 'MCB Replacement', 'Load Balancing'], price: 'Starts at ₹350' }
+            },
+            'lighting': {
+                hi: { title: 'फैंसी लाइटिंग (Decorative Lighting)', desc: 'दिवाली हो या शादी, या घर का इंटीरियर, हम हर तरह की डेकोरेटिव लाइट लगाते हैं।', includes: ['झूमर (Chandelier) फिटिंग', 'प्रोफाइल लाइट्स', 'स्ट्रिप लाइट्स', 'गार्डन लाइट्स'], price: 'डिजाइन के अनुसार' },
+                en: { title: 'Fancy Lighting', desc: 'Be it festivals or home interiors, we install all types of decorative lights.', includes: ['Chandelier Fitting', 'Profile Lights', 'Strip Lights', 'Garden Lights'], price: 'Depends on design' }
+            },
+            'switch': {
+                hi: { title: 'स्विच बोर्ड रिपेयर (Switch Board)', desc: 'ढीले सॉकेट और चिंगारी निकलने वाले स्विच खतरनाक हैं। हम उन्हें मॉड्यूलर स्विच बोर्ड से बदल सकते हैं।', includes: ['नया बोर्ड कटिंग', 'मॉड्यूलर शीट फिटिंग', 'रेगुलेटर बदलना', 'सॉकेट रिप्लेसमेंट'], price: '₹100 प्रति पॉइंट से शुरू' },
+                en: { title: 'Switch Board Repair', desc: 'Loose sockets and sparking switches are dangerous. We can replace them with modular boards.', includes: ['New Board Cutting', 'Modular Sheet Fitting', 'Regulator Change', 'Socket Replacement'], price: 'Starts at ₹100 per point' }
+            }
+        };
+
+        // --- Logic ---
+        let currentLang = 'hi';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            updateContent();
+        }
+
+        function updateContent() {
+            // Update simple text elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key]; // Using innerHTML to support <span> etc
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
+        // --- Modal Logic ---
+        function openServiceModal(serviceKey) {
+            const modal = document.getElementById('serviceModal');
+            const data = serviceDetails[serviceKey][currentLang];
+            
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDesc').textContent = data.desc;
+            document.getElementById('modalPrice').textContent = data.price;
+            
+            const list = document.getElementById('modalIncludes');
+            list.innerHTML = '';
+            data.includes.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // --- NEW CONTACT FORM LOGIC ---
+        let formData = {};
+
+        function handleBooking(e) {
+            e.preventDefault();
+            
+            // Get values
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const service = document.getElementById('c-service').value;
+            const msg = document.getElementById('c-msg').value;
+
+            if(!name || !phone) {
+                alert("Please fill Name and Phone number / कृपया नाम और मोबाइल नंबर भरें");
+                return;
+            }
+
+            formData = { name, phone, service, msg };
+            
+            // Show Option Modal
+            document.getElementById('contactOptionModal').style.display = 'flex';
+        }
+
+        function sendToWhatsapp() {
+            const ownerPhone = "916267971935";
+            const text = `*New Service Request*\n\nName: ${formData.name}\nPhone: ${formData.phone}\nService: ${formData.service}\nMessage: ${formData.msg}`;
+            const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            closeModal('contactOptionModal');
+        }
+
+        function sendToEmail() {
+            const ownerEmail = "gopalbaghel2311@gmail.com";
+            const subject = `Service Request from ${formData.name}`;
+            const body = `Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AService: ${formData.service}%0D%0AMessage: ${formData.msg}`;
+            window.location.href = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
+            closeModal('contactOptionModal');
+        }
+    </script>
+</body>
+</html>
