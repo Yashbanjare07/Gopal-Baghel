@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>टाइल्स मिस्त्री - Professional Tile Mason</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS Variables & Reset (SAME AS ORIGINAL) --- */
+        :root {
+            --primary-color: #f1c40f; /* Yellow/Gold for Construction */
+            --primary-dark: #d4ac0d;
+            --secondary-color: #2c3e50; /* Dark Blue/Grey */
+            --secondary-light: #34495e;
+            --accent-color: #e67e22; /* Brick Orange */
+            --accent-gradient: linear-gradient(135deg, #e67e22, #d35400);
+            --light-bg: #f8f9fa;
+            --text-dark: #333;
+            --text-light: #fff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --card-hover-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Yantramanav', 'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--light-bg); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        /* --- Animations Keyframes --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(230, 126, 34, 0); } 100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* Scroll Reveal Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Splash Screen --- */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), #000);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+            color: white;
+            text-align: center;
+        }
+
+        .splash-content img {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(241, 196, 15, 0.6);
+            animation: float 2s infinite;
+        }
+
+        .splash-content h1 { font-size: 2.5rem; margin-bottom: 5px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; }
+        .splash-content p { font-size: 1.2rem; letter-spacing: 2px; color: #ddd; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-color);
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
+        }
+        .logo i { color: #fff; }
+
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav ul li a { 
+            color: var(--text-light); text-decoration: none; font-weight: 500; 
+            transition: 0.3s; position: relative;
+        }
+        nav ul li a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--primary-color); transition: width 0.3s;
+        }
+        nav ul li a:hover { color: var(--primary-color); }
+        nav ul li a:hover::after { width: 100%; }
+
+        .lang-switch {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            color: var(--secondary-color);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(241, 196, 15, 0.3);
+        }
+        .lang-switch:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(241, 196, 15, 0.5); }
+
+        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- Hero Section (Tiles Image Updated) --- */
+        .hero {
+            height: 100vh;
+            /* Updated Background Image: Tiles Installation / Flooring Work */
+            background: linear-gradient(rgba(44, 62, 80, 0.80), rgba(44, 62, 80, 0.70)), url('part4a.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--secondary-color) 120%);
+            pointer-events: none;
+        }
+
+        .hero h1 { 
+            font-size: 4rem; color: var(--text-light); margin-bottom: 20px; 
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8); z-index: 1;
+            animation: slideUp 1s ease-out;
+        }
+        .hero span { 
+            color: var(--primary-color); 
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.6);
+        }
+        .hero p { 
+            color: #f0f0f0; font-size: 1.4rem; max-width: 700px; margin-bottom: 40px; 
+            z-index: 1; animation: slideUp 1s ease-out 0.3s backwards;
+        }
+        
+        .cta-button {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.4);
+            z-index: 1;
+            animation: slideUp 1s ease-out 0.6s backwards, pulseGlow 2s infinite 2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cta-button:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.6); 
+            background: linear-gradient(135deg, #d35400, #e67e22);
+        }
+
+        /* --- About Owner Section --- */
+        .about-owner {
+            padding: 100px 10%;
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-owner::after {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 50%; height: 200%;
+            background: rgba(241, 196, 15, 0.05); transform: rotate(-15deg); pointer-events: none;
+        }
+
+        .about-img {
+            flex: 1; min-width: 300px; position: relative; z-index: 2;
+        }
+        .about-img img {
+            width: 100%; border-radius: 15px;
+            box-shadow: 20px 20px 0 var(--primary-color), 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid white;
+            transition: transform 0.3s;
+        }
+        .about-img:hover img { transform: scale(1.02) rotate(-1deg); }
+
+        .about-text { flex: 1; min-width: 300px; z-index: 2; }
+        .about-text h2 { font-size: 2.8rem; color: var(--secondary-color); margin-bottom: 10px; line-height: 1.2; }
+        .about-text h3 { color: var(--accent-color); margin-bottom: 25px; font-size: 1.5rem; font-weight: 600; }
+        .about-text p { margin-bottom: 15px; color: #555; font-size: 1.1rem; }
+        
+        .exp-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+            transition: 0.3s;
+        }
+        .exp-badge:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(44, 62, 80, 0.4); }
+
+        /* --- Services --- */
+        .services { padding: 100px 10%; background-color: #f0f4f8; text-align: center; }
+        .section-title { 
+            font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 60px; 
+            position: relative; display: inline-block; font-weight: 700;
+        }
+        .section-title::after { 
+            content: ''; display: block; width: 60px; height: 5px; 
+            background: var(--accent-color); margin: 15px auto 0; border-radius: 10px;
+            transition: width 0.3s;
+        }
+        .section-title:hover::after { width: 100px; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .service-card {
+            background: white; padding: 40px 30px; border-radius: 15px;
+            box-shadow: var(--card-shadow); border: none;
+            transition: all 0.4s ease; cursor: pointer; position: relative; overflow: hidden;
+            z-index: 1;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #34495e 100%);
+            z-index: -1; opacity: 0; transition: opacity 0.4s;
+        }
+        .service-card:hover { transform: translateY(-15px); box-shadow: var(--card-hover-shadow); }
+        .service-card:hover::before { opacity: 1; }
+        
+        .service-card i { 
+            font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 25px; 
+            background: #f4f4f4; width: 90px; height: 90px; line-height: 90px; 
+            border-radius: 50%; transition: 0.4s;
+        }
+        .service-card:hover i { background: var(--primary-color); color: white; transform: rotateY(360deg); }
+        
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--secondary-color); transition: 0.3s; }
+        .service-card p { color: #666; transition: 0.3s; }
+        
+        .service-card:hover h3, .service-card:hover p { color: white; }
+
+        .service-card .read-more {
+            margin-top: 20px; display: inline-block; color: var(--accent-color); 
+            font-weight: bold; font-size: 0.9rem; transition: 0.3s;
+            background: rgba(230, 126, 34, 0.1); padding: 8px 15px; border-radius: 20px;
+        }
+        .service-card:hover .read-more { background: white; color: var(--secondary-color); }
+
+        /* --- Gallery Section --- */
+        .gallery { padding: 100px 10%; background-color: white; text-align: center; }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-top: 50px;
+        }
+        .gallery-item {
+            position: relative; overflow: hidden; border-radius: 15px;
+            height: 280px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.15); }
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white; opacity: 0; transition: opacity 0.4s;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+            text-align: left;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay h4 { font-size: 1.4rem; color: var(--primary-color); transform: translateY(20px); transition: 0.4s 0.1s; }
+        .gallery-overlay p { font-size: 1rem; transform: translateY(20px); transition: 0.4s 0.2s; }
+        .gallery-item:hover .gallery-overlay h4, .gallery-item:hover .gallery-overlay p { transform: translateY(0); }
+
+        /* --- Social Media Section --- */
+        .social-media {
+            padding: 80px 10%; background-color: #f8f9fa; text-align: center;
+        }
+        .social-icons { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
+        .social-icon {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: white; display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; color: var(--secondary-color);
+            transition: all 0.4s; text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative; overflow: hidden;
+        }
+        .social-icon::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            z-index: -1; transform: translateY(100%); transition: transform 0.4s;
+        }
+        .social-icon:hover { color: white; transform: translateY(-8px) rotate(360deg); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .social-icon:hover::before { transform: translateY(0); }
+        
+        .social-icon.youtube:hover { background: #FF0000; }
+        .social-icon.facebook:hover { background: #1877F2; }
+        .social-icon.instagram:hover { background: #E1306C; }
+
+        /* --- Why Us --- */
+        .why-us { 
+            padding: 100px 10%; 
+            background: linear-gradient(135deg, var(--secondary-color), #050e16); 
+            color: white; text-align: center; 
+        }
+        .why-us .section-title { color: white; }
+        .features-container { display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 60px; gap: 40px; }
+        
+        .feature-box { text-align: center; max-width: 300px; transition: 0.3s; }
+        .feature-box:hover { transform: translateY(-10px); }
+        
+        .feature-box i { 
+            color: var(--secondary-color); font-size: 2.5rem; margin-bottom: 20px; 
+            background: var(--primary-color); padding: 25px; border-radius: 50%;
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.4); animation: float 3s ease-in-out infinite;
+        }
+        .feature-box h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--primary-color); }
+        .feature-box p { color: #ccc; }
+
+        /* --- Contact --- */
+        .contact { 
+            padding: 100px 10%; display: flex; flex-wrap: wrap; gap: 60px; 
+            justify-content: center; background: white; 
+        }
+        .contact-info h2 { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .info-item { display: flex; align-items: center; margin-bottom: 25px; font-size: 1.1rem; }
+        .info-item i { 
+            color: white; background: var(--accent-color); width: 45px; height: 45px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; margin-right: 20px; box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .contact-form { 
+            background: white; padding: 50px; border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-top: 6px solid var(--accent-color);
+            transform: translateY(0); transition: 0.3s;
+        }
+        .contact-form:hover { transform: translateY(-10px); }
+
+        .form-group input, .form-group textarea, .form-group select { 
+            width: 100%; padding: 18px; border: 2px solid #eee; margin-bottom: 25px; 
+            border-radius: 10px; font-size: 1rem; transition: 0.3s; background: #f9f9f9;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--accent-color); outline: none; background: white;
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.1);
+        }
+
+        .submit-btn { 
+            width: 100%; padding: 18px; 
+            background: var(--secondary-color); 
+            color: white; border: none; font-weight: bold; cursor: pointer; 
+            font-size: 1.1rem; border-radius: 50px; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .submit-btn:hover { 
+            background: var(--accent-color); 
+            transform: translateY(-3px); box-shadow: 0 15px 30px rgba(230, 126, 34, 0.3); 
+        }
+
+        /* --- Footer --- */
+        footer { background: #050e16; color: #888; text-align: center; padding: 40px 20px; border-top: 1px solid #222; }
+
+        /* --- Modal (Popup) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary-color), #34495e);
+            color: white; padding: 25px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-header h3 { font-size: 1.5rem; }
+        .modal-body { padding: 40px; }
+        .close-btn { font-size: 1.8rem; cursor: pointer; color: white; transition: 0.3s; }
+        .close-btn:hover { color: var(--accent-color); transform: rotate(90deg); }
+
+        /* CONTACT OPTION BUTTONS */
+        .contact-option-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 15px; margin-bottom: 15px;
+            border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            transition: 0.3s; border: none; cursor: pointer; color: white;
+        }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #128C7E; transform: scale(1.02); }
+        .btn-email { background-color: #EA4335; }
+        .btn-email:hover { background-color: #B93327; transform: scale(1.02); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--secondary-color); flex-direction: column; padding: 20px 0; }
+            nav ul.active { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .about-owner { flex-direction: column; text-align: center; }
+            .about-img img { box-shadow: 10px 10px 0 var(--primary-color); }
+            .contact { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <!-- You can replace this image with the owner's photo -->
+            <img src="gimage3.jpeg" alt="Owner Photo">
+            <h1 data-i18n="owner_name">गोपाल बघेल</h1>
+            <p>Tiles Mistri / Granite Expert / Marble Contractor</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-layer-group"></i>
+            <span data-i18n="logo">गोपाल टाइल्स</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="lang-switch" onclick="toggleLanguage()">EN / HI</button>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#home" onclick="toggleMenu()" data-i18n="nav_home">होम</a></li>
+                <li><a href="#services" onclick="toggleMenu()" data-i18n="nav_services">सेवाएं</a></li>
+                <li><a href="#about-owner" onclick="toggleMenu()" data-i18n="nav_about">परिचय</a></li>
+                <li><a href="#gallery" onclick="toggleMenu()" data-i18n="nav_gallery">गैलरी</a></li>
+                <li><a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">संपर्क करें</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <h1 data-i18n="hero_title">आपके घर की <span>खूबसूरती</span>, हमारी जिम्मेदारी</h1>
+        <p data-i18n="hero_desc">प्रोफेशनल टाइल्स मिस्त्री | मार्बल और ग्रेनाइट फिटिंग | सटीक फिनिशिंग</p>
+        <a href="#contact" class="cta-button" data-i18n="btn_call"><i class="fas fa-phone"></i> अभी कॉल करें</a>
+    </section>
+
+    <!-- About Owner Section -->
+    <section class="about-owner reveal" id="about-owner">
+        <div class="about-img">
+            <img src="gimage1.jpeg" alt="Tiles Mistri">
+        </div>
+        <div class="about-text">
+            <h2 data-i18n="about_title">नमस्ते, मैं गोपाल हूँ</h2>
+            <h3 data-i18n="about_subtitle">आपका भरोसेमंद "टाइल्स वाला"</h3>
+            <p data-i18n="about_p1">पिछले 10 वर्षों से मैं टाइल्स और पत्थर (Stone) के काम में हूँ। मेरा उद्देश्य केवल फर्श लगाना नहीं, बल्कि आपके घर को एक नया और शानदार लुक देना है।</p>
+            <p data-i18n="about_p2">चाहे बाथरूम की टाइल्स हो, किचन का ग्रेनाइट हो या पोर्च की पार्किंग टाइल्स, मैं हर काम को पूरी मजबूती और जीरो-लेवल (Zero Level) फिनिशिंग के साथ करता हूँ।</p>
+            <div class="exp-badge" data-i18n="exp_badge">10+ साल का अनुभव</div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services reveal" id="services">
+        <h2 class="section-title" data-i18n="services_title">हमारी सेवाएं</h2>
+        <div class="services-grid">
+            <!-- Service 1: Floor Tiles -->
+            <div class="service-card" onclick="openServiceModal('flooring')">
+                <i class="fas fa-th-large"></i>
+                <h3 data-i18n="s1_title">फ्लोर टाइल्स</h3>
+                <p data-i18n="s1_desc">घर के फर्श के लिए विट्रिफाइड टाइल्स फिटिंग।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 2: Bathroom/Wall -->
+            <div class="service-card" onclick="openServiceModal('bathroom')">
+                <i class="fas fa-shower"></i>
+                <h3 data-i18n="s2_title">बाथरूम/दीवार</h3>
+                <p data-i18n="s2_desc">डिजाइनर दीवार टाइल्स और वाटरप्रूफिंग।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 3: Granite/Kitchen -->
+            <div class="service-card" onclick="openServiceModal('granite')">
+                <i class="fas fa-utensils"></i>
+                <h3 data-i18n="s3_title">किचन प्लेटफार्म</h3>
+                <p data-i18n="s3_desc">ग्रेनाइट, मार्बल प्लेटफार्म और सिंक फिटिंग।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 4: Parking -->
+            <div class="service-card" onclick="openServiceModal('parking')">
+                <i class="fas fa-car"></i>
+                <h3 data-i18n="s4_title">पार्किंग टाइल्स</h3>
+                <p data-i18n="s4_desc">भारी वाहनों के लिए मजबूत पार्किंग टाइल्स।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 5: Staircase -->
+            <div class="service-card" onclick="openServiceModal('stairs')">
+                <i class="fas fa-sort-amount-up"></i>
+                <h3 data-i18n="s5_title">सीढ़ियां (Stairs)</h3>
+                <p data-i18n="s5_desc">सीढ़ियों पर मार्बल या ग्रेनाइट की मोल्डिंग।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 6: Repair -->
+            <div class="service-card" onclick="openServiceModal('repair')">
+                <i class="fas fa-hammer"></i>
+                <h3 data-i18n="s6_title">रिपेयरिंग वर्क</h3>
+                <p data-i18n="s6_desc">टूटी हुई टाइल्स बदलना और ग्राउटिंग भरना।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (UPDATED: 11 Images) -->
+    <section class="gallery reveal" id="gallery">
+        <h2 class="section-title" data-i18n="gallery_title">हमारा काम (Gallery)</h2>
+        <p data-i18n="gallery_desc" style="margin-bottom: 20px; color: #666;">हमारे द्वारा किए गए कुछ बेहतरीन फ्लोरिंग और टाइल्स प्रोजेक्ट्स</p>
+        <div class="gallery-grid">
+            <!-- 1. Living Room Floor -->
+            <div class="gallery-item">
+                <img src="part4a.jpg" alt="Living Room Floor">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g1_title">लक्ज़री हॉल फर्श</h4>
+                    <p data-i18n="g1_desc">4x2 विट्रिफाइड टाइल्स फिटिंग</p>
+                </div>
+            </div>
+            <!-- 2. Modular Kitchen -->
+            <div class="gallery-item">
+                <img src="part4b.jpg" alt="Kitchen Granite">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g2_title">मॉडर्न किचन</h4>
+                    <p data-i18n="g2_desc">ब्लैक ग्रेनाइट टॉप और डैडो टाइल्स</p>
+                </div>
+            </div>
+            <!-- 3. Bathroom -->
+            <div class="gallery-item">
+                <img src="part4c.jpg" alt="Bathroom Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g3_title">बाथरूम डिजाइन</h4>
+                    <p data-i18n="g3_desc">एंटी-स्किड टाइल्स और हाईलाइटर</p>
+                </div>
+            </div>
+            <!-- 4. Parking -->
+            <div class="gallery-item">
+                <img src="part4d.jpg" alt="Parking Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g4_title">पार्किंग एरिया</h4>
+                    <p data-i18n="g4_desc">हेवी ड्यूटी आउटडोर टाइल्स</p>
+                </div>
+            </div>
+            <!-- 5. Staircase -->
+            <div class="gallery-item">
+                <img src="part4e.jpg" alt="Marble Stairs">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g5_title">सीढ़ियों का काम</h4>
+                    <p data-i18n="g5_desc">डबल मोल्डिंग मार्बल वर्क</p>
+                </div>
+            </div>
+            <!-- 6. Wall Cladding -->
+            <div class="gallery-item">
+                <img src="part4f.jpg" alt="Elevation Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g6_title">फ्रंट एलिवेशन</h4>
+                    <p data-i18n="g6_desc">दीवार पर स्टोन क्लैडिंग</p>
+                </div>
+            </div>
+            <!-- 7. Wooden Texture (New) -->
+            <div class="gallery-item">
+                <img src="part4g.jpg" alt="Wooden Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g7_title">वुडन प्लैंक टाइल्स</h4>
+                    <p data-i18n="g7_desc">लकड़ी जैसी फिनिश वाली टाइल्स</p>
+                </div>
+            </div>
+            <!-- 8. Commercial Flooring (New) -->
+            <div class="gallery-item">
+                <img src="part4h.jpg" alt="Office Floor">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g8_title">कमर्शियल फ्लोरिंग</h4>
+                    <p data-i18n="g8_desc">शोरूम और ऑफिस टाइल्स वर्क</p>
+                </div>
+            </div>
+             <!-- 9. Mosaic/Backsplash (New) -->
+            <div class="gallery-item">
+                <img src="part4i.jpg" alt="Mosaic Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g9_title">मोज़ेक टाइल्स</h4>
+                    <p data-i18n="g9_desc">किचन और बाथरूम बैकस्प्लैश</p>
+                </div>
+            </div>
+            <!-- 10. Swimming Pool (New) -->
+            <div class="gallery-item">
+                <img src="part4j.jpg" alt="Pool Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g10_title">स्विमिंग पूल</h4>
+                    <p data-i18n="g10_desc">वॉटरप्रूफ पूल टाइल्स फिटिंग</p>
+                </div>
+            </div>
+            <!-- 11. Outdoor Patio (New) -->
+            <div class="gallery-item">
+                <img src="part4k.jpg" alt="Patio Tiles">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g11_title">आउटडोर आँगन</h4>
+                    <p data-i18n="g11_desc">आधुनिक पेवर ब्लॉक और टाइल्स</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media reveal">
+        <h2 class="section-title" data-i18n="social_title">हमसे सोशल मीडिया पर जुड़ें</h2>
+        <div class="social-icons">
+            <a href="https://youtube.com/@gopalbaghel2?si=BVe1zt01DAK46_tk" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1PJ9fr398m/" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/gopalbaghelofficial?igsh=YWxuYmpjaGEwZ2lh" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us reveal" id="why-us">
+        <h2 class="section-title" data-i18n="why_title">हमें क्यों चुनें?</h2>
+        <div class="features-container">
+            <div class="feature-box">
+                <i class="fas fa-ruler-combined"></i>
+                <h3 data-i18n="w1_title">सटीक माप</h3>
+                <p data-i18n="w1_desc">जीरो-लेवल और परफेक्ट फिनिशिंग।</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-clock"></i>
+                <h3 data-i18n="w2_title">समय पर काम</h3>
+                <p data-i18n="w2_desc">हम प्रोजेक्ट समय पर पूरा करते हैं।</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-rupee-sign"></i>
+                <h3 data-i18n="w3_title">किफायती दाम</h3>
+                <p data-i18n="w3_desc">उचित रेट और कम वेस्टेज (Wastage)।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact reveal" id="contact">
+        <div class="contact-info">
+            <h2 data-i18n="contact_title">संपर्क करें</h2>
+            <p data-i18n="contact_desc">घर बनाने या रिनोवेशन के लिए संपर्क करें।</p>
+            <br>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>+91 62679 71935</span> <!-- Replace with Tile Mistri Number -->
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span>gopalbaghel2311@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span data-i18n="address">ग्राम - सेवती, पोस्ट-हिर्री, दुर्ग (छ.ग.)</span>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <input type="text" id="c-name" placeholder="Name / नाम" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="c-phone" placeholder="Mobile No. / मोबाइल" required>
+                </div>
+                <div class="form-group">
+                    <select id="c-service">
+                        <option value="Flooring">Floor Tiles / फर्श</option>
+                        <option value="Bathroom">Bathroom / बाथरूम</option>
+                        <option value="Granite">Kitchen/Granite / ग्रेनाइट</option>
+                        <option value="Repair">Repair / रिपेयरिंग</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="c-msg" rows="4" placeholder="Message (e.g., area size in sq ft)"></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-i18n="btn_book">बुक करें</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Created by Yash Banjare. All rights reserved.</p>
+    </footer>
+
+    <!-- Service Details Modal -->
+    <div id="serviceModal" class="modal" onclick="if(event.target === this) closeModal('serviceModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Service Name</h3>
+                <span class="close-btn" onclick="closeModal('serviceModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalDesc">Description goes here.</p>
+                <div class="modal-details">
+                    <h4 data-i18n="modal_includes">क्या शामिल है:</h4>
+                    <ul id="modalIncludes">
+                        <!-- Dynamic List -->
+                    </ul>
+                    <h4 data-i18n="modal_pricing">अनुमानित रेट (Labour Rate):</h4>
+                    <p id="modalPrice" style="font-weight: bold; color: var(--secondary-color);">₹15 / sq. ft. onwards</p>
+                </div>
+                <br>
+                <a href="#contact" onclick="closeModal('serviceModal')" class="call-btn" style="display:block; text-align:center; color: var(--accent-color); font-weight:bold; text-decoration:none;" data-i18n="btn_book_now">अभी एस्टीमेट लें (Get Estimate)</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Option Modal -->
+    <div id="contactOptionModal" class="modal" onclick="if(event.target === this) closeModal('contactOptionModal')">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Send Request via...</h3>
+                <span class="close-btn" onclick="closeModal('contactOptionModal')">&times;</span>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p style="margin-bottom: 20px;">आप अपनी रिक्वेस्ट कैसे भेजना चाहते हैं?</p>
+                
+                <button onclick="sendToWhatsapp()" class="contact-option-btn btn-whatsapp">
+                    <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> WhatsApp
+                </button>
+                
+                <button onclick="sendToEmail()" class="contact-option-btn btn-email">
+                    <i class="fas fa-envelope" style="margin-right: 10px;"></i> Email
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // --- Splash Screen Logic ---
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800); 
+            }, 3000); 
+        });
+
+        // --- Scroll Reveal Logic ---
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal();
+
+        // --- Data & Translations (UPDATED FOR TILES) ---
+        const translations = {
+            'hi': {
+                logo: 'विश्वकर्मा टाइल्स',
+                nav_home: 'होम', nav_services: 'सेवाएं', nav_about: 'परिचय', nav_gallery: 'गैलरी', nav_why: 'क्यों चुनें?', nav_contact: 'संपर्क करें',
+                owner_name: 'राजेश विश्वकर्मा',
+                hero_title: 'आपके घर की <span>खूबसूरती</span>, हमारी जिम्मेदारी',
+                hero_desc: 'प्रोफेशनल टाइल्स मिस्त्री | मार्बल और ग्रेनाइट फिटिंग | सटीक फिनिशिंग',
+                btn_call: 'अभी कॉल करें',
+                
+                about_title: 'नमस्ते, मैं राजेश हूँ',
+                about_subtitle: 'आपका भरोसेमंद "टाइल्स मिस्त्री"',
+                about_p1: 'पिछले 10 वर्षों से मैं टाइल्स और पत्थर (Stone) के काम में हूँ। मेरा उद्देश्य केवल फर्श लगाना नहीं, बल्कि आपके घर को एक नया और शानदार लुक देना है।',
+                about_p2: 'चाहे बाथरूम की टाइल्स हो, किचन का ग्रेनाइट हो या पोर्च की पार्किंग टाइल्स, मैं हर काम को पूरी मजबूती और जीरो-लेवल (Zero Level) फिनिशिंग के साथ करता हूँ।',
+                exp_badge: '10+ साल का अनुभव',
+
+                services_title: 'हमारी सेवाएं',
+                read_more: 'विवरण देखें →',
+                s1_title: 'फ्लोर टाइल्स', s1_desc: 'घर के फर्श के लिए विट्रिफाइड टाइल्स फिटिंग।',
+                s2_title: 'बाथरूम/दीवार', s2_desc: 'डिजाइनर दीवार टाइल्स और वाटरप्रूफिंग।',
+                s3_title: 'किचन प्लेटफार्म', s3_desc: 'ग्रेनाइट, मार्बल प्लेटफार्म और सिंक फिटिंग।',
+                s4_title: 'पार्किंग टाइल्स', s4_desc: 'भारी वाहनों के लिए मजबूत पार्किंग टाइल्स।',
+                s5_title: 'सीढ़ियां (Stairs)', s5_desc: 'सीढ़ियों पर मार्बल या ग्रेनाइट की मोल्डिंग।',
+                s6_title: 'रिपेयरिंग वर्क', s6_desc: 'टूटी हुई टाइल्स बदलना और ग्राउटिंग भरना।',
+                
+                gallery_title: 'हमारा काम (Gallery)', gallery_desc: 'हमारे द्वारा किए गए कुछ बेहतरीन फ्लोरिंग और टाइल्स प्रोजेक्ट्स',
+                g1_title: 'लक्ज़री हॉल फर्श', g1_desc: '4x2 विट्रिफाइड टाइल्स फिटिंग',
+                g2_title: 'मॉडर्न किचन', g2_desc: 'ब्लैक ग्रेनाइट टॉप और डैडो टाइल्स',
+                g3_title: 'बाथरूम डिजाइन', g3_desc: 'एंटी-स्किड टाइल्स और हाईलाइटर',
+                g4_title: 'पार्किंग एरिया', g4_desc: 'हेवी ड्यूटी आउटडोर टाइल्स',
+                g5_title: 'सीढ़ियों का काम', g5_desc: 'डबल मोल्डिंग मार्बल वर्क',
+                g6_title: 'फ्रंट एलिवेशन', g6_desc: 'दीवार पर स्टोन क्लैडिंग',
+                g7_title: 'वुडन प्लैंक टाइल्स', g7_desc: 'लकड़ी जैसी फिनिश वाली टाइल्स',
+                g8_title: 'कमर्शियल फ्लोरिंग', g8_desc: 'शोरूम और ऑफिस टाइल्स वर्क',
+                g9_title: 'मोज़ेक टाइल्स', g9_desc: 'किचन और बाथरूम बैकस्प्लैश',
+                g10_title: 'स्विमिंग पूल', g10_desc: 'वॉटरप्रूफ पूल टाइल्स फिटिंग',
+                g11_title: 'आउटडोर आँगन', g11_desc: 'आधुनिक पेवर ब्लॉक और टाइल्स',
+                
+                social_title: 'हमसे सोशल मीडिया पर जुड़ें',
+                why_title: 'हमें क्यों चुनें?',
+                w1_title: 'सटीक माप', w1_desc: 'जीरो-लेवल और परफेक्ट फिनिशिंग।',
+                w2_title: 'समय पर काम', w2_desc: 'हम प्रोजेक्ट समय पर पूरा करते हैं।',
+                w3_title: 'किफायती दाम', w3_desc: 'उचित रेट और कम वेस्टेज (Wastage)।',
+                contact_title: 'संपर्क करें', contact_desc: 'घर बनाने या रिनोवेशन के लिए संपर्क करें।',
+                address: 'शास्त्री नगर, रायपुर (छ.ग.)',
+                btn_book: 'बुक करें',
+                modal_includes: 'क्या शामिल है:', modal_pricing: 'अनुमानित लेबर रेट:', btn_book_now: 'अभी एस्टीमेट लें'
+            },
+            'en': {
+                logo: 'Vishwakarma Tiles',
+                nav_home: 'Home', nav_services: 'Services', nav_about: 'About', nav_gallery: 'Gallery', nav_why: 'Why Us?', nav_contact: 'Contact',
+                owner_name: 'Rajesh Vishwakarma',
+                hero_title: 'Enhancing Your Home\'s <span>Beauty</span>',
+                hero_desc: 'Professional Tile Mason | Marble & Granite Fitting | Precise Finishing',
+                btn_call: 'Call Now',
+
+                about_title: 'Hi, I am Rajesh',
+                about_subtitle: 'Your Trusted "Tile Expert"',
+                about_p1: 'I have been working in the tiles and stone industry for 10 years. My goal is to give your home a luxurious look with perfect flooring.',
+                about_p2: 'Whether it\'s bathroom tiles, kitchen granite, or parking pavers, I ensure strong fitting and zero-level finishing.',
+                exp_badge: '10+ Years Experience',
+
+                services_title: 'Our Services',
+                read_more: 'View Details →',
+                s1_title: 'Floor Tiles', s1_desc: 'Vitrified tile fitting for halls & rooms.',
+                s2_title: 'Bathroom/Wall', s2_desc: 'Designer wall tiles & waterproofing.',
+                s3_title: 'Kitchen Platform', s3_desc: 'Granite/Marble installation & sink fitting.',
+                s4_title: 'Parking Tiles', s4_desc: 'Heavy-duty tiles for outdoor parking.',
+                s5_title: 'Staircase', s5_desc: 'Granite or marble moulding for stairs.',
+                s6_title: 'Repair Work', s6_desc: 'Replacing broken tiles & grouting.',
+                
+                gallery_title: 'Our Work (Gallery)', gallery_desc: 'Some of our finest flooring and tile projects',
+                g1_title: 'Luxury Living Room', g1_desc: '4x2 Vitrified Tiles Fitting',
+                g2_title: 'Modern Kitchen', g2_desc: 'Black Granite Top & Dado Tiles',
+                g3_title: 'Bathroom Design', g3_desc: 'Anti-skid tiles & Highlighter',
+                g4_title: 'Parking Area', g4_desc: 'Heavy duty outdoor tiles',
+                g5_title: 'Staircase Work', g5_desc: 'Double Moulding Marble Work',
+                g6_title: 'Front Elevation', g6_desc: 'Stone cladding on walls',
+                g7_title: 'Wooden Plank Tiles', g7_desc: 'Wood-finish tiles for bedrooms',
+                g8_title: 'Commercial Flooring', g8_desc: 'Showroom & Office tile work',
+                g9_title: 'Mosaic Tiles', g9_desc: 'Kitchen & Bathroom Backsplash',
+                g10_title: 'Swimming Pool', g10_desc: 'Waterproof pool tile fitting',
+                g11_title: 'Outdoor Patio', g11_desc: 'Modern Pavers & Tiles',
+
+                social_title: 'Connect on Social Media',
+                why_title: 'Why Choose Us?',
+                w1_title: 'Precise Measurement', w1_desc: 'Zero-level and perfect finishing.',
+                w2_title: 'On-Time Work', w2_desc: 'We complete projects on time.',
+                w3_title: 'Affordable Rates', w3_desc: 'Fair pricing and minimum wastage.',
+                contact_title: 'Contact Us', contact_desc: 'Contact for new home or renovation.',
+                address: 'Shastri Nagar, Raipur (C.G.)',
+                btn_book: 'Book Now',
+                modal_includes: 'What\'s Included:', modal_pricing: 'Est. Labour Rate:', btn_book_now: 'Get Estimate'
+            }
+        };
+
+        const serviceDetails = {
+            'flooring': {
+                hi: { title: 'फ्लोर टाइल्स (Floor Tiling)', desc: 'हम डबल चार्ज, GVT और सिरामिक टाइल्स को आधुनिक तकनीक और लेज़र लेवल से लगाते हैं।', includes: ['कच्चा फर्श (Base) तैयार करना', 'केमिकल या सीमेंट से फिटिंग', 'स्कर्टिंग लगाना', 'सफाई और फिनिशिंग'], price: '₹12 - ₹18 प्रति sq. ft. (साइज अनुसार)' },
+                en: { title: 'Floor Tiling', desc: 'We install Double Charge, GVT, and Ceramic tiles using modern techniques and laser leveling.', includes: ['Base preparation', 'Fitting with Chemical/Cement', 'Skirting installation', 'Cleaning & Finishing'], price: '₹12 - ₹18 per sq. ft. (Depends on size)' }
+            },
+            'bathroom': {
+                hi: { title: 'बाथरूम और दीवार (Wall Tiles)', desc: 'बाथरूम और किचन की दीवारों पर हाईलाइटर और प्लेन टाइल्स का बेहतरीन कॉम्बिनेशन।', includes: ['दीवार का लेवल चेक', 'वॉटरप्रूफिंग केमिकल', 'कोने की कटिंग (माइटर)', 'एपॉक्सी ग्राउटिंग'], price: '₹15 - ₹20 प्रति sq. ft.' },
+                en: { title: 'Bathroom & Wall Tiles', desc: 'Perfect combination of highlighter and plain tiles for bathrooms and kitchens.', includes: ['Wall Level Check', 'Waterproofing Chemical', 'Corner Cutting (Mitre)', 'Epoxy Grouting'], price: '₹15 - ₹20 per sq. ft.' }
+            },
+            'granite': {
+                hi: { title: 'किचन ग्रेनाइट (Kitchen)', desc: 'किचन प्लेटफॉर्म, सिंक और खिड़कियों की फ्रेम के लिए मजबूत ग्रेनाइट फिटिंग।', includes: ['ग्रेनाइट कटिंग और पोलिश', 'डबल मोल्डिंग (धार)', 'सिंक फिटिंग', 'गैस पाइप के लिए होल'], price: '₹350 - ₹500 प्रति रनिंग फीट' },
+                en: { title: 'Kitchen Granite', desc: 'Strong granite fitting for kitchen platforms, sinks, and window frames.', includes: ['Granite Cutting & Polish', 'Double Moulding (Edge)', 'Sink Fitting', 'Hole for Gas Pipe'], price: '₹350 - ₹500 per running ft.' }
+            },
+            'parking': {
+                hi: { title: 'पार्किंग टाइल्स (Parking)', desc: 'कार और बाइक पार्किंग के लिए मजबूत टाइल्स जो टूटें नहीं और फिसलन न हो।', includes: ['ढलान (Slope) सेट करना', 'मजबूत बेस तैयार करना', 'हैवी ड्यूटी टाइल्स', 'वाटर ड्रेनेज चेक'], price: '₹14 - ₹18 प्रति sq. ft.' },
+                en: { title: 'Parking Tiles', desc: 'Strong non-slippery tiles for car and bike parking designed to last.', includes: ['Setting Slope', 'Strong Base Prep', 'Heavy Duty Tiles', 'Water Drainage Check'], price: '₹14 - ₹18 per sq. ft.' }
+            },
+            'stairs': {
+                hi: { title: 'सीढ़ियां (Staircase)', desc: 'सीढ़ियों पर ग्रेनाइट या मार्बल लगाकर घर को शाही लुक दें।', includes: ['स्टेप और राइजर फिटिंग', 'नोज़िंग और मोल्डिंग', 'एंटी-स्किड कटिंग', 'पोलिशिंग'], price: '₹200 - ₹400 प्रति स्टेप (सामग्री अनुसार)' },
+                en: { title: 'Staircase Work', desc: 'Give a royal look to your home with Granite or Marble stairs.', includes: ['Step & Riser Fitting', 'Nosing & Moulding', 'Anti-skid cutting', 'Polishing'], price: '₹200 - ₹400 per step (Material based)' }
+            },
+            'repair': {
+                hi: { title: 'रिपेयरिंग (Repair Work)', desc: 'फूली हुई या टूटी हुई टाइल्स को बदलना और ग्राउटिंग (Grouting) भरना।', includes: ['पुरानी टाइल्स निकालना', 'नया मसाला/केमिकल', 'मैचिंग ग्राउट भरना', 'सफाई'], price: 'साइट देखने के बाद तय होगा' },
+                en: { title: 'Repair Work', desc: 'Replacing popped-up or broken tiles and refilling grouting.', includes: ['Removing old tiles', 'New Cement/Chemical', 'Matching Grout filling', 'Cleaning'], price: 'Decided after site visit' }
+            }
+        };
+
+        // --- Logic ---
+        let currentLang = 'hi';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            updateContent();
+        }
+
+        function updateContent() {
+            // Update simple text elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
+        // --- Modal Logic ---
+        function openServiceModal(serviceKey) {
+            const modal = document.getElementById('serviceModal');
+            const data = serviceDetails[serviceKey][currentLang];
+            
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDesc').textContent = data.desc;
+            document.getElementById('modalPrice').textContent = data.price;
+            
+            const list = document.getElementById('modalIncludes');
+            list.innerHTML = '';
+            data.includes.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // --- NEW CONTACT FORM LOGIC ---
+        let formData = {};
+
+        function handleBooking(e) {
+            e.preventDefault();
+            
+            // Get values
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const service = document.getElementById('c-service').value;
+            const msg = document.getElementById('c-msg').value;
+
+            if(!name || !phone) {
+                alert("Please fill Name and Phone number / कृपया नाम और मोबाइल नंबर भरें");
+                return;
+            }
+
+            formData = { name, phone, service, msg };
+            
+            // Show Option Modal
+            document.getElementById('contactOptionModal').style.display = 'flex';
+        }
+
+        function sendToWhatsapp() {
+            // Replace with Tile Mistri Number
+            const ownerPhone = "919999999999"; 
+            const text = `*New Tile Work Request*\n\nName: ${formData.name}\nPhone: ${formData.phone}\nService Type: ${formData.service}\nDetails: ${formData.msg}`;
+            const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            closeModal('contactOptionModal');
+        }
+
+        function sendToEmail() {
+            // Replace with Owner Email
+            const ownerEmail = "tileswork@email.com";
+            const subject = `Tile Work Request from ${formData.name}`;
+            const body = `Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AService Type: ${formData.service}%0D%0ADetails: ${formData.msg}`;
+            window.location.href = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
+            closeModal('contactOptionModal');
+        }
+    </script>
+</body>
+</html>
