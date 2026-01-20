@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>रॉयल सीलिंग - False Ceiling Experts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS Variables & Reset (New Color Theme: Teal & Dark Slate) --- */
+        :root {
+            --primary-color: #1abc9c; /* Teal */
+            --primary-dark: #16a085;
+            --secondary-color: #2c3e50; /* Dark Slate Blue */
+            --secondary-light: #34495e;
+            --accent-color: #e67e22; /* Carrot Orange */
+            --accent-gradient: linear-gradient(135deg, #e67e22, #d35400);
+            --light-bg: #ecf0f1;
+            --text-dark: #2c3e50;
+            --text-light: #fff;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --card-hover-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Yantramanav', 'Poppins', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--light-bg); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        /* --- Animations Keyframes --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(230, 126, 34, 0); } 100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* Scroll Reveal Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Splash Screen --- */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), #000);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out;
+            color: white;
+            text-align: center;
+        }
+
+        .splash-content img {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(26, 188, 156, 0.6);
+            animation: pulseGlow 2s infinite;
+        }
+
+        .splash-content h1 { font-size: 2.5rem; margin-bottom: 5px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px; }
+        .splash-content p { font-size: 1.2rem; letter-spacing: 2px; color: #ddd; }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-color);
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(26, 188, 156, 0.3);
+        }
+        /* Changed icon for ceiling */
+        .logo i { animation: float 3s infinite; color: #fff; }
+
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav ul li a { 
+            color: var(--text-light); text-decoration: none; font-weight: 500; 
+            transition: 0.3s; position: relative;
+        }
+        nav ul li a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background-color: var(--primary-color); transition: width 0.3s;
+        }
+        nav ul li a:hover { color: var(--primary-color); }
+        nav ul li a:hover::after { width: 100%; }
+
+        .lang-switch {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(26, 188, 156, 0.3);
+        }
+        .lang-switch:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(26, 188, 156, 0.5); }
+
+        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            /* Updated Image for False Ceiling with a cleaner overlay */
+            background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.5)), url('part5a.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--secondary-color) 120%);
+            pointer-events: none;
+        }
+
+        .hero h1 { 
+            font-size: 4rem; color: var(--text-light); margin-bottom: 20px; 
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8); z-index: 1;
+            animation: slideUp 1s ease-out;
+        }
+        .hero span { 
+            color: var(--primary-color); 
+            text-shadow: 0 0 20px rgba(26, 188, 156, 0.6);
+        }
+        .hero p { 
+            color: #f0f0f0; font-size: 1.4rem; max-width: 700px; margin-bottom: 40px; 
+            z-index: 1; animation: slideUp 1s ease-out 0.3s backwards;
+        }
+        
+        .cta-button {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.4);
+            z-index: 1;
+            animation: slideUp 1s ease-out 0.6s backwards, pulseGlow 2s infinite 2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cta-button:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.6); 
+            background: linear-gradient(135deg, #d35400, #e67e22);
+        }
+
+        /* --- About Owner Section --- */
+        .about-owner {
+            padding: 100px 10%;
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-owner::after {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 50%; height: 200%;
+            background: rgba(26, 188, 156, 0.05); transform: rotate(-15deg); pointer-events: none;
+        }
+
+        .about-img {
+            flex: 1; min-width: 300px; position: relative; z-index: 2;
+        }
+        .about-img img {
+            width: 100%; border-radius: 15px;
+            box-shadow: 20px 20px 0 var(--primary-color), 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid white;
+            transition: transform 0.3s;
+        }
+        .about-img:hover img { transform: scale(1.02) rotate(-1deg); }
+
+        .about-text { flex: 1; min-width: 300px; z-index: 2; }
+        .about-text h2 { font-size: 2.8rem; color: var(--secondary-color); margin-bottom: 10px; line-height: 1.2; }
+        .about-text h3 { color: var(--accent-color); margin-bottom: 25px; font-size: 1.5rem; font-weight: 600; }
+        .about-text p { margin-bottom: 15px; color: #555; font-size: 1.1rem; }
+        
+        .exp-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+            transition: 0.3s;
+        }
+        .exp-badge:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(44, 62, 80, 0.4); background: var(--primary-color); }
+
+        /* --- Services --- */
+        .services { padding: 100px 10%; background-color: var(--light-bg); text-align: center; }
+        .section-title { 
+            font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 60px; 
+            position: relative; display: inline-block; font-weight: 700;
+        }
+        .section-title::after { 
+            content: ''; display: block; width: 60px; height: 5px; 
+            background: var(--accent-color); margin: 15px auto 0; border-radius: 10px;
+            transition: width 0.3s;
+        }
+        .section-title:hover::after { width: 100px; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .service-card {
+            background: white; padding: 40px 30px; border-radius: 15px;
+            box-shadow: var(--card-shadow); border: none;
+            transition: all 0.4s ease; cursor: pointer; position: relative; overflow: hidden;
+            z-index: 1;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #1a2f42 100%);
+            z-index: -1; opacity: 0; transition: opacity 0.4s;
+        }
+        .service-card:hover { transform: translateY(-15px); box-shadow: var(--card-hover-shadow); }
+        .service-card:hover::before { opacity: 1; }
+        
+        .service-card i { 
+            font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 25px; 
+            background: #f4f4f4; width: 90px; height: 90px; line-height: 90px; 
+            border-radius: 50%; transition: 0.4s;
+        }
+        .service-card:hover i { background: var(--primary-color); color: white; transform: rotateY(360deg); }
+        
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--secondary-color); transition: 0.3s; }
+        .service-card p { color: #666; transition: 0.3s; }
+        
+        .service-card:hover h3, .service-card:hover p { color: white; }
+
+        .service-card .read-more {
+            margin-top: 20px; display: inline-block; color: var(--accent-color); 
+            font-weight: bold; font-size: 0.9rem; transition: 0.3s;
+            background: rgba(230, 126, 34, 0.1); padding: 8px 15px; border-radius: 20px;
+        }
+        .service-card:hover .read-more { background: white; color: var(--secondary-color); }
+
+        /* --- Gallery Section --- */
+        .gallery { padding: 100px 10%; background-color: white; text-align: center; }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-top: 50px;
+        }
+        .gallery-item {
+            position: relative; overflow: hidden; border-radius: 15px;
+            height: 280px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.15); }
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(44, 62, 80, 0.95), transparent);
+            color: white; opacity: 0; transition: opacity 0.4s;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 30px;
+            text-align: left;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay h4 { font-size: 1.4rem; color: var(--primary-color); transform: translateY(20px); transition: 0.4s 0.1s; }
+        .gallery-overlay p { font-size: 1rem; transform: translateY(20px); transition: 0.4s 0.2s; }
+        .gallery-item:hover .gallery-overlay h4, .gallery-item:hover .gallery-overlay p { transform: translateY(0); }
+
+        /* --- Social Media Section --- */
+        .social-media {
+            padding: 80px 10%; background-color: var(--light-bg); text-align: center;
+        }
+        .social-icons { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
+        .social-icon {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: white; display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; color: var(--secondary-color);
+            transition: all 0.4s; text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative; overflow: hidden;
+        }
+        .social-icon::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            z-index: -1; transform: translateY(100%); transition: transform 0.4s;
+        }
+        .social-icon:hover { color: white; transform: translateY(-8px) rotate(360deg); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .social-icon:hover::before { transform: translateY(0); }
+        
+        .social-icon.youtube:hover { background: #FF0000; }
+        .social-icon.facebook:hover { background: #1877F2; }
+        .social-icon.instagram:hover { background: #E1306C; }
+
+        /* --- Why Us --- */
+        .why-us { 
+            padding: 100px 10%; 
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f); 
+            color: white; text-align: center; 
+        }
+        .why-us .section-title { color: white; }
+        .features-container { display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 60px; gap: 40px; }
+        
+        .feature-box { text-align: center; max-width: 300px; transition: 0.3s; }
+        .feature-box:hover { transform: translateY(-10px); }
+        
+        .feature-box i { 
+            color: var(--secondary-color); font-size: 2.5rem; margin-bottom: 20px; 
+            background: var(--primary-color); padding: 25px; border-radius: 50%;
+            box-shadow: 0 0 20px rgba(26, 188, 156, 0.4); animation: float 3s ease-in-out infinite;
+        }
+        .feature-box h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--primary-color); }
+        .feature-box p { color: #bdc3c7; }
+
+        /* --- Contact --- */
+        .contact { 
+            padding: 100px 10%; display: flex; flex-wrap: wrap; gap: 60px; 
+            justify-content: center; background: white; 
+        }
+        .contact-info h2 { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .info-item { display: flex; align-items: center; margin-bottom: 25px; font-size: 1.1rem; }
+        .info-item i { 
+            color: white; background: var(--accent-color); width: 45px; height: 45px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; margin-right: 20px; box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .contact-form { 
+            background: white; padding: 50px; border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-top: 6px solid var(--accent-color);
+            transform: translateY(0); transition: 0.3s;
+        }
+        .contact-form:hover { transform: translateY(-10px); }
+
+        .form-group input, .form-group textarea, .form-group select { 
+            width: 100%; padding: 18px; border: 2px solid #eee; margin-bottom: 25px; 
+            border-radius: 10px; font-size: 1rem; transition: 0.3s; background: #f9f9f9;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--accent-color); outline: none; background: white;
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.1);
+        }
+
+        .submit-btn { 
+            width: 100%; padding: 18px; 
+            background: var(--secondary-color); 
+            color: white; border: none; font-weight: bold; cursor: pointer; 
+            font-size: 1.1rem; border-radius: 50px; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .submit-btn:hover { 
+            background: var(--accent-color); 
+            transform: translateY(-3px); box-shadow: 0 15px 30px rgba(230, 126, 34, 0.3); 
+        }
+
+        /* --- Footer --- */
+        footer { background: #2c3e50; color: #bdc3c7; text-align: center; padding: 40px 20px; border-top: 1px solid #34495e; }
+
+        /* --- Modal (Popup) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary-color), #34495e);
+            color: white; padding: 25px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-header h3 { font-size: 1.5rem; }
+        .modal-body { padding: 40px; }
+        .close-btn { font-size: 1.8rem; cursor: pointer; color: white; transition: 0.3s; }
+        .close-btn:hover { color: var(--accent-color); transform: rotate(90deg); }
+
+        /* CONTACT OPTION BUTTONS */
+        .contact-option-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 15px; margin-bottom: 15px;
+            border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1.1rem;
+            transition: 0.3s; border: none; cursor: pointer; color: white;
+        }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #128C7E; transform: scale(1.02); }
+        .btn-email { background-color: #EA4335; }
+        .btn-email:hover { background-color: #B93327; transform: scale(1.02); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--secondary-color); flex-direction: column; padding: 20px 0; }
+            nav ul.active { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .about-owner { flex-direction: column; text-align: center; }
+            .about-img img { box-shadow: 10px 10px 0 var(--primary-color); }
+            .contact { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <!-- Update Image URL -->
+            <img src="gimage3.jpeg" alt="Owner Photo">
+            <h1 data-i18n="owner_name">गोपाल बघेल </h1>
+            <p>Professional False Ceiling & Interior Contractor</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <!-- Changed Icon -->
+            <i class="fas fa-layer-group"></i>
+            <span data-i18n="logo"> गोपाल फॉल सीलिंग</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="lang-switch" onclick="toggleLanguage()">EN / HI</button>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#home" onclick="toggleMenu()" data-i18n="nav_home">होम</a></li>
+                <li><a href="#services" onclick="toggleMenu()" data-i18n="nav_services">सेवाएं</a></li>
+                <li><a href="#about-owner" onclick="toggleMenu()" data-i18n="nav_about">परिचय</a></li>
+                <li><a href="#gallery" onclick="toggleMenu()" data-i18n="nav_gallery">गैलरी</a></li>
+                <li><a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">संपर्क करें</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <h1 data-i18n="hero_title">आपके घर की <span>छत</span>, हमारी कला</h1>
+        <p data-i18n="hero_desc">प्रीमियम फॉल सीलिंग | POP डिज़ाइन | मॉडर्न लाइटिंग</p>
+        <a href="#contact" class="cta-button" data-i18n="btn_call"><i class="fas fa-phone"></i> अभी कॉल करें</a>
+    </section>
+
+    <!-- About Owner Section -->
+    <section class="about-owner reveal" id="about-owner">
+        <div class="about-img">
+            <!-- Place holder for Owner Image -->
+            <img src="gimage1.jpeg" alt="Ceiling Expert">
+        </div>
+        <div class="about-text">
+            <h2 data-i18n="about_title">नमस्ते, मैं गोपाल हूँ </h2>
+            <h3 data-i18n="about_subtitle">इंटीरियर और सीलिंग एक्सपर्ट</h3>
+            <p data-i18n="about_p1">पिछले 10 वर्षों से हम फॉल सीलिंग (False Ceiling) और इंटीरियर के क्षेत्र में काम कर रहे हैं। हम जिप्सम, POP और PVC सीलिंग में माहिर हैं।</p>
+            <p data-i18n="about_p2">हमारा लक्ष्य आपके घर और ऑफिस को एक मॉडर्न और प्रीमियम लुक देना है। हम केवल ब्रांडेड मटीरियल और बेहतरीन फिनिशिंग का उपयोग करते हैं।</p>
+            <div class="exp-badge" data-i18n="exp_badge">10+ साल का अनुभव</div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services reveal" id="services">
+        <h2 class="section-title" data-i18n="services_title">हमारी सेवाएं</h2>
+        <div class="services-grid">
+            <!-- Service 1: Gypsum -->
+            <div class="service-card" onclick="openServiceModal('gypsum')">
+                <i class="fas fa-border-all"></i>
+                <h3 data-i18n="s1_title">जिप्सम सीलिंग</h3>
+                <p data-i18n="s1_desc">मॉडर्न और स्मूथ फिनिश फॉल सीलिंग।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 2: POP -->
+            <div class="service-card" onclick="openServiceModal('pop')">
+                <i class="fas fa-paint-roller"></i>
+                <h3 data-i18n="s2_title">POP डिज़ाइन</h3>
+                <p data-i18n="s2_desc">पारंपरिक और कलात्मक POP वर्क।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 3: PVC -->
+            <div class="service-card" onclick="openServiceModal('pvc')">
+                <i class="fas fa-layer-group"></i>
+                <h3 data-i18n="s3_title">PVC सीलिंग</h3>
+                <p data-i18n="s3_desc">वाटरप्रूफ सीलिंग बाथरूम/बालकनी के लिए।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 4: Grid -->
+            <div class="service-card" onclick="openServiceModal('grid')">
+                <i class="fas fa-th-large"></i>
+                <h3 data-i18n="s4_title">ग्रिड सीलिंग</h3>
+                <p data-i18n="s4_desc">ऑफिस और दुकानों के लिए टाइल्स सीलिंग।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 5: Wall Panel -->
+            <div class="service-card" onclick="openServiceModal('wallpanel')">
+                <i class="fas fa-couch"></i>
+                <h3 data-i18n="s5_title">वॉल पैनलिंग</h3>
+                <p data-i18n="s5_desc">TV यूनिट और दीवारों की सजावट।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+            <!-- Service 6: Lighting -->
+            <div class="service-card" onclick="openServiceModal('lighting')">
+                <i class="fas fa-lightbulb"></i>
+                <h3 data-i18n="s6_title">कोव लाइटिंग</h3>
+                <p data-i18n="s6_desc">सीलिंग के अंदर छिपी हुई लाइट्स।</p>
+                <span class="read-more" data-i18n="read_more">विवरण देखें &rarr;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (UPDATED to 12 Images) -->
+    <section class="gallery reveal" id="gallery">
+        <h2 class="section-title" data-i18n="gallery_title">हमारा काम (Gallery)</h2>
+        <p data-i18n="gallery_desc" style="margin-bottom: 20px; color: #666;">हमारे द्वारा किए गए कुछ बेहतरीन सीलिंग और इंटीरियर प्रोजेक्ट्स</p>
+        <div class="gallery-grid">
+            <!-- 1. Living Room -->
+            <div class="gallery-item">
+                <img src="part5a.jpg" alt="Living Room Ceiling">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g1_title">लक्ज़री लिविंग रूम</h4>
+                    <p data-i18n="g1_desc">जिप्सम सीलिंग विथ कोव लाइट</p>
+                </div>
+            </div>
+            <!-- 2. Bedroom -->
+            <div class="gallery-item">
+                <img src="part5b.jpg" alt="Bedroom Ceiling">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g2_title">मास्टर बेडरूम</h4>
+                    <p data-i18n="g2_desc">सिंपल और मॉडर्न डिज़ाइन</p>
+                </div>
+            </div>
+            <!-- 3. Office -->
+            <div class="gallery-item">
+                <img src="part5c.jpg" alt="Office Grid Ceiling">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g3_title">कमर्शियल ऑफिस</h4>
+                    <p data-i18n="g3_desc">2x2 ग्रिड सीलिंग टाइल्स</p>
+                </div>
+            </div>
+            <!-- 4. TV Unit -->
+            <div class="gallery-item">
+                <img src="part5d.jpg" alt="TV Unit">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g4_title">TV वॉल पैनल</h4>
+                    <p data-i18n="g4_desc">लकड़ी और PVC पैनलिंग</p>
+                </div>
+            </div>
+            <!-- 5. Hall -->
+            <div class="gallery-item">
+                <img src="part5e.webp" alt="Hall Design">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g5_title">ड्राइंग रूम</h4>
+                    <p data-i18n="g5_desc">POP फ्लावर डिज़ाइन</p>
+                </div>
+            </div>
+            <!-- 6. Kitchen -->
+            <div class="gallery-item">
+                <img src="part5f.jpg" alt="Kitchen Ceiling">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g6_title">मॉड्यूलर किचन</h4>
+                    <p data-i18n="g6_desc">नमी प्रतिरोधी सीलिंग</p>
+                </div>
+            </div>
+            <!-- 7. Kids Room -->
+            <div class="gallery-item">
+                <img src="part5g.jpg" alt="Kids Room">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g7_title">बच्चों का कमरा</h4>
+                    <p data-i18n="g7_desc">रंगीन और मजेदार डिजाइन</p>
+                </div>
+            </div>
+            <!-- 8. Jewelry Shop -->
+            <div class="gallery-item">
+                <img src="part5h.png" alt="Shop Ceiling">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g8_title">ज्वेलरी शोरूम</h4>
+                    <p data-i18n="g8_desc">प्रीमियम लाइटिंग सेटअप</p>
+                </div>
+            </div>
+            <!-- 9. Hotel Lobby -->
+            <div class="gallery-item">
+                <img src="part5i.jpg" alt="Hotel Lobby">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g9_title">होटल लॉबी</h4>
+                    <p data-i18n="g9_desc">ग्रैंड झूमर और सीलिंग</p>
+                </div>
+            </div>
+            <!-- 10. Balcony -->
+            <div class="gallery-item">
+                <img src="part5j.jpg" alt="Balcony">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g10_title">बालकोनी सीलिंग</h4>
+                    <p data-i18n="g10_desc">वुडन फिनिश PVC</p>
+                </div>
+            </div>
+            <!-- 11. Temple -->
+            <div class="gallery-item">
+                <img src="part5k.webp" alt="Temple Room">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g11_title">पूजा कक्ष </h4>
+                    <p data-i18n="g11_desc">पारंपरिक POP कलाकृति</p>
+                </div>
+            </div>
+            <!-- 12. Conference -->
+            <div class="gallery-item">
+                <img src="part5l.avif" alt="Conference Room">
+                <div class="gallery-overlay">
+                    <h4 data-i18n="g12_title">कॉन्फ्रेंस रूम</h4>
+                    <p data-i18n="g12_desc">ध्वनि रोधक सीलिंग</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media reveal">
+        <h2 class="section-title" data-i18n="social_title">हमसे सोशल मीडिया पर जुड़ें</h2>
+        <div class="social-icons">
+            <a href="https://youtube.com/@gopalbaghel2?si=BVe1zt01DAK46_tk" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1PJ9fr398m/" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/gopalbaghelofficial?igsh=YWxuYmpjaGEwZ2lh" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us reveal" id="why-us">
+        <h2 class="section-title" data-i18n="why_title">हमें क्यों चुनें?</h2>
+        <div class="features-container">
+            <div class="feature-box">
+                <i class="fas fa-shield-alt"></i>
+                <h3 data-i18n="w1_title">टिकाऊ मटीरियल</h3>
+                <p data-i18n="w1_desc">हम केवल ब्रांडेड (Saint-Gobain/Gyproc) मटीरियल उपयोग करते हैं।</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-stopwatch"></i>
+                <h3 data-i18n="w2_title">समय पर काम</h3>
+                <p data-i18n="w2_desc">तय समय सीमा के अंदर प्रोजेक्ट पूरा करने की गारंटी।</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-tags"></i>
+                <h3 data-i18n="w3_title">किफायती दाम</h3>
+                <p data-i18n="w3_desc">बाजार में सबसे उचित मूल्य (Sq.Ft रेट)।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact reveal" id="contact">
+        <div class="contact-info">
+            <h2 data-i18n="contact_title">संपर्क करें</h2>
+            <p data-i18n="contact_desc">फ्री एस्टीमेट (Estimate) के लिए अभी कॉल करें।</p>
+            <br>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <!-- Update Phone Number -->
+                <span>+91 62679 71935</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <!-- Update Email -->
+                <span>gopalbaghel2311@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span data-i18n="address">ग्राम - सेवती, पोस्ट-हिर्री, दुर्ग (छ.ग.)</span>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <input type="text" id="c-name" placeholder="Name / नाम" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="c-phone" placeholder="Mobile No. / मोबाइल" required>
+                </div>
+                <div class="form-group">
+                    <select id="c-service">
+                        <option value="Gypsum Ceiling">Gypsum Ceiling / जिप्सम</option>
+                        <option value="POP Design">POP Design / पीओपी</option>
+                        <option value="PVC Work">PVC Work / पीवीसी</option>
+                        <option value="Wall Paneling">Wall Panel / वॉल पैनल</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="c-msg" rows="4" placeholder="Room Size or Details / कमरे का साइज..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-i18n="btn_book">बुक करें</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Created by Yash Banjare. All rights reserved.</p>
+    </footer>
+
+    <!-- Service Details Modal -->
+    <div id="serviceModal" class="modal" onclick="if(event.target === this) closeModal('serviceModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Service Name</h3>
+                <span class="close-btn" onclick="closeModal('serviceModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalDesc">Description goes here.</p>
+                <div class="modal-details">
+                    <h4 data-i18n="modal_includes">क्या शामिल है:</h4>
+                    <ul id="modalIncludes">
+                        <!-- Dynamic List -->
+                    </ul>
+                    <h4 data-i18n="modal_pricing">अनुमानित मूल्य:</h4>
+                    <p id="modalPrice" style="font-weight: bold; color: var(--secondary-color);">₹90 / sq.ft</p>
+                </div>
+                <br>
+                <a href="#contact" onclick="closeModal('serviceModal')" class="call-btn" style="display:block; text-align:center; background: var(--secondary-color); color: white; padding: 10px; border-radius: 5px; text-decoration: none;" data-i18n="btn_book_now">अभी बुक करें</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Option Modal -->
+    <div id="contactOptionModal" class="modal" onclick="if(event.target === this) closeModal('contactOptionModal')">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Send Request via...</h3>
+                <span class="close-btn" onclick="closeModal('contactOptionModal')">&times;</span>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p style="margin-bottom: 20px;">आप अपनी रिक्वेस्ट कैसे भेजना चाहते हैं?</p>
+                
+                <button onclick="sendToWhatsapp()" class="contact-option-btn btn-whatsapp">
+                    <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> WhatsApp
+                </button>
+                
+                <button onclick="sendToEmail()" class="contact-option-btn btn-email">
+                    <i class="fas fa-envelope" style="margin-right: 10px;"></i> Email
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // --- Splash Screen Logic ---
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800); 
+            }, 2500); 
+        });
+
+        // --- Scroll Reveal Logic ---
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal();
+
+        // --- Data & Translations (UPDATED FOR FALSE CEILING & NEW GALLERY) ---
+        const translations = {
+            'hi': {
+                logo: 'गोपाल फॉल सीलिंग',
+                nav_home: 'होम', nav_services: 'सेवाएं', nav_about: 'परिचय', nav_gallery: 'गैलरी', nav_why: 'क्यों चुनें?', nav_contact: 'संपर्क करें',
+                owner_name: 'गोपाल बघेल ',
+                hero_title: 'आपके घर की <span>छत</span>, हमारी कला',
+                hero_desc: 'प्रीमियम फॉल सीलिंग | POP डिज़ाइन | मॉडर्न लाइटिंग',
+                btn_call: 'अभी कॉल करें',
+                
+                about_title: 'नमस्ते, मै गोपाल हूँ',
+                about_subtitle: 'इंटीरियर और सीलिंग एक्सपर्ट',
+                about_p1: 'पिछले 10 वर्षों से हम फॉल सीलिंग (False Ceiling) और इंटीरियर के क्षेत्र में काम कर रहे हैं। हम जिप्सम, POP और PVC सीलिंग में माहिर हैं।',
+                about_p2: 'हमारा लक्ष्य आपके घर और ऑफिस को एक मॉडर्न और प्रीमियम लुक देना है। हम केवल ब्रांडेड मटीरियल और बेहतरीन फिनिशिंग का उपयोग करते हैं।',
+                exp_badge: '10+ साल का अनुभव',
+
+                services_title: 'हमारी सेवाएं',
+                read_more: 'विवरण देखें →',
+                s1_title: 'जिप्सम सीलिंग', s1_desc: 'मॉडर्न और स्मूथ फिनिश फॉल सीलिंग।',
+                s2_title: 'POP डिज़ाइन', s2_desc: 'पारंपरिक और कलात्मक POP वर्क।',
+                s3_title: 'PVC सीलिंग', s3_desc: 'वाटरप्रूफ सीलिंग बाथरूम/बालकनी के लिए।',
+                s4_title: 'ग्रिड सीलिंग', s4_desc: 'ऑफिस और दुकानों के लिए टाइल्स सीलिंग।',
+                s5_title: 'वॉल पैनलिंग', s5_desc: 'TV यूनिट और दीवारों की सजावट।',
+                s6_title: 'कोव लाइटिंग', s6_desc: 'सीलिंग के अंदर छिपी हुई लाइट्स।',
+                
+                gallery_title: 'हमारा काम (Gallery)', gallery_desc: 'हमारे द्वारा किए गए कुछ बेहतरीन सीलिंग और इंटीरियर प्रोजेक्ट्स',
+                g1_title: 'लक्ज़री लिविंग रूम', g1_desc: 'जिप्सम सीलिंग विथ कोव लाइट',
+                g2_title: 'मास्टर बेडरूम', g2_desc: 'सिंपल और मॉडर्न डिज़ाइन',
+                g3_title: 'कमर्शियल ऑफिस', g3_desc: '2x2 ग्रिड सीलिंग टाइल्स',
+                g4_title: 'TV वॉल पैनल', g4_desc: 'लकड़ी और PVC पैनलिंग',
+                g5_title: 'ड्राइंग रूम', g5_desc: 'POP फ्लावर डिज़ाइन',
+                g6_title: 'मॉड्यूलर किचन', g6_desc: 'नमी प्रतिरोधी सीलिंग',
+                g7_title: 'बच्चों का कमरा', g7_desc: 'रंगीन और मजेदार डिजाइन',
+                g8_title: 'ज्वेलरी शोरूम', g8_desc: 'प्रीमियम लाइटिंग सेटअप',
+                g9_title: 'होटल लॉबी', g9_desc: 'ग्रैंड झूमर और सीलिंग',
+                g10_title: 'बालकोनी सीलिंग', g10_desc: 'वुडन फिनिश PVC',
+                g11_title: 'पूजा कक्ष (मंदिर)', g11_desc: 'पारंपरिक POP कलाकृति',
+                g12_title: 'कॉन्फ्रेंस रूम', g12_desc: 'ध्वनि रोधक सीलिंग',
+                
+                social_title: 'हमसे सोशल मीडिया पर जुड़ें',
+                why_title: 'हमें क्यों चुनें?',
+                w1_title: 'टिकाऊ मटीरियल', w1_desc: 'हम केवल ब्रांडेड (Saint-Gobain/Gyproc) मटीरियल उपयोग करते हैं।',
+                w2_title: 'समय पर काम', w2_desc: 'तय समय सीमा के अंदर प्रोजेक्ट पूरा करने की गारंटी।',
+                w3_title: 'किफायती दाम', w3_desc: 'बाजार में सबसे उचित मूल्य (Sq.Ft रेट)।',
+                contact_title: 'संपर्क करें', contact_desc: 'फ्री एस्टीमेट (Estimate) के लिए अभी कॉल करें।',
+                address: 'ग्राम - सेवती, पोस्ट-हिर्री, दुर्ग (छ.ग.)',
+                btn_book: 'बुक करें',
+                modal_includes: 'क्या शामिल है:', modal_pricing: 'अनुमानित मूल्य:', btn_book_now: 'अभी बुक करें'
+            },
+            'en': {
+                logo: 'Gopal False Ceiling',
+                nav_home: 'Home', nav_services: 'Services', nav_about: 'About', nav_gallery: 'Gallery', nav_why: 'Why Us?', nav_contact: 'Contact',
+                owner_name: 'Gopal Baghel',
+                hero_title: 'Your Home <span>Ceiling</span>, Our Art',
+                hero_desc: 'Premium False Ceiling | POP Design | Modern Lighting',
+                btn_call: 'Call Now',
+
+                about_title: 'Hi, I am Gopal',
+                about_subtitle: 'Interior & Ceiling Experts',
+                about_p1: 'We have been working in the False Ceiling and Interior field for the past 10 years. We specialize in Gypsum, POP, and PVC ceilings.',
+                about_p2: 'Our goal is to give your home and office a modern and premium look. We use only branded materials and provide excellent finishing.',
+                exp_badge: '10+ Years Experience',
+
+                services_title: 'Our Services',
+                read_more: 'View Details →',
+                s1_title: 'Gypsum Ceiling', s1_desc: 'Modern and smooth finish false ceiling.',
+                s2_title: 'POP Design', s2_desc: 'Traditional and artistic POP work.',
+                s3_title: 'PVC Ceiling', s3_desc: 'Waterproof ceiling for bathroom/balcony.',
+                s4_title: 'Grid Ceiling', s4_desc: 'Tile ceiling for offices and shops.',
+                s5_title: 'Wall Paneling', s5_desc: 'TV units and wall decoration.',
+                s6_title: 'Cove Lighting', s6_desc: 'Hidden lights inside ceiling.',
+                
+                gallery_title: 'Our Work (Gallery)', gallery_desc: 'Some of our finest ceiling and interior projects',
+                g1_title: 'Luxury Living Room', g1_desc: 'Gypsum ceiling with cove light',
+                g2_title: 'Master Bedroom', g2_desc: 'Simple and modern design',
+                g3_title: 'Commercial Office', g3_desc: '2x2 Grid ceiling tiles',
+                g4_title: 'TV Wall Panel', g4_desc: 'Wood and PVC paneling',
+                g5_title: 'Drawing Room', g5_desc: 'POP Flower design',
+                g6_title: 'Modular Kitchen', g6_desc: 'Moisture resistant ceiling',
+                g7_title: 'Kids Room', g7_desc: 'Colorful and fun designs',
+                g8_title: 'Jewelry Showroom', g8_desc: 'Premium lighting setup',
+                g9_title: 'Hotel Lobby', g9_desc: 'Grand chandeliers & ceiling',
+                g10_title: 'Balcony Ceiling', g10_desc: 'Wooden finish PVC',
+                g11_title: 'Pooja Room (Temple)', g11_desc: 'Traditional POP artwork',
+                g12_title: 'Conference Room', g12_desc: 'Sound-proof acoustic ceiling',
+
+                social_title: 'Connect on Social Media',
+                why_title: 'Why Choose Us?',
+                w1_title: 'Durable Material', w1_desc: 'We use branded (Saint-Gobain/Gyproc) materials only.',
+                w2_title: 'On-Time Work', w2_desc: 'Guarantee to complete project within deadline.',
+                w3_title: 'Affordable Rates', w3_desc: 'Best reasonable rates in the market (Sq.Ft).',
+                contact_title: 'Contact Us', contact_desc: 'Call now for a free estimate.',
+                address: 'Vill. Sewati, Post-Hirri, Durg, (C.G.)',
+                btn_book: 'Book Now',
+                modal_includes: 'What\'s Included:', modal_pricing: 'Estimated Price:', btn_book_now: 'Book Now'
+            }
+        };
+
+        const serviceDetails = {
+            'gypsum': {
+                hi: { title: 'जिप्सम फॉल सीलिंग', desc: 'यह आजकल सबसे लोकप्रिय सीलिंग है। यह बहुत स्मूथ फिनिश देती है और इसमें कोव लाइट लगाई जा सकती है।', includes: ['जीआई चैनल फ्रेमिंग', 'जिप्सम बोर्ड (12mm)', 'टेपिंग और जॉइंट फिनिश', 'कटिंग फॉर लाइट्स'], price: '₹95 - ₹110 प्रति sq.ft' },
+                en: { title: 'Gypsum False Ceiling', desc: 'This is the most popular ceiling today. It gives a very smooth finish and allows for cove lighting.', includes: ['GI Channel Framing', 'Gypsum Board (12mm)', 'Taping & Joint Finish', 'Cutting for Lights'], price: '₹95 - ₹110 per sq.ft' }
+            },
+            'pop': {
+                hi: { title: 'पीओपी (POP) डिज़ाइन', desc: 'प्लास्टर ऑफ पेरिस का उपयोग करके कॉर्निस, फूल और बॉर्डर डिज़ाइन बनाए जाते हैं। यह क्लासिक लुक के लिए बेहतरीन है।', includes: ['POP मोल्डिंग', 'कॉर्निस डिज़ाइन', 'सीलिंग बॉर्डर', 'सेंटर पीस (फूल)'], price: '₹50 - ₹70 प्रति sq.ft' },
+                en: { title: 'POP Design', desc: 'Cornice, flowers, and border designs are made using Plaster of Paris. Great for a classic look.', includes: ['POP Molding', 'Cornice Design', 'Ceiling Border', 'Center Piece (Flower)'], price: '₹50 - ₹70 per sq.ft' }
+            },
+            'pvc': {
+                hi: { title: 'पीवीसी (PVC) सीलिंग', desc: 'प्लास्टिक बेस्ड सीलिंग जो पूरी तरह वाटरप्रूफ होती है। बाथरूम, बालकनी और नमी वाली दीवारों के लिए बेस्ट।', includes: ['PVC पैनल्स', 'फ्रेमिंग', 'इंस्टॉलेशन', 'नो पेंटिंग रिक्वायर्ड'], price: '₹85 - ₹100 प्रति sq.ft' },
+                en: { title: 'PVC Ceiling', desc: 'Plastic-based ceiling that is completely waterproof. Best for bathrooms, balconies, and damp walls.', includes: ['PVC Panels', 'Framing', 'Installation', 'No Painting Required'], price: '₹85 - ₹100 per sq.ft' }
+            },
+            'grid': {
+                hi: { title: 'ग्रिड (Tiles) सीलिंग', desc: '2x2 फीट की टाइल्स वाली सीलिंग। यह ऑफिस और दुकानों के लिए सबसे सस्ती और टिकाऊ होती है।', includes: ['मेटल ग्रिड फ्रेम', '2x2 टाइल्स', 'वायर हैंगिंग', 'आसान रिपेयरिंग'], price: '₹75 - ₹90 प्रति sq.ft' },
+                en: { title: 'Grid (Tiles) Ceiling', desc: 'Ceiling with 2x2 feet tiles. Most affordable and durable for offices and shops.', includes: ['Metal Grid Frame', '2x2 Tiles', 'Wire Hanging', 'Easy Repairing'], price: '₹75 - ₹90 per sq.ft' }
+            },
+            'wallpanel': {
+                hi: { title: 'वॉल पैनलिंग (TV Unit)', desc: 'दीवारों को सजाने के लिए चारकोल शीट, लुवर्स या PVC पैनल का उपयोग। TV यूनिट बनाने में बेस्ट।', includes: ['वॉल फ्रेमिंग', 'पैनल इंस्टॉलेशन', 'TV माउंटिंग स्पेस', 'प्रीमियम लुक'], price: '₹150 - ₹300 प्रति sq.ft' },
+                en: { title: 'Wall Paneling (TV Unit)', desc: 'Use of charcoal sheets, louvers or PVC panels to decorate walls. Best for making TV units.', includes: ['Wall Framing', 'Panel Installation', 'TV Mounting Space', 'Premium Look'], price: '₹150 - ₹300 per sq.ft' }
+            },
+            'lighting': {
+                hi: { title: 'कोव और प्रोफाइल लाइट', desc: 'सीलिंग के अंदर छिपी हुई LED स्ट्रिप लाइट्स जो कमरे को शानदार लुक देती हैं।', includes: ['प्रोफाइल चैनल फिटिंग', 'LED स्ट्रिप इंस्टॉलेशन', 'ड्राइवर कनेक्शन', 'रंग विकल्प (वार्म/व्हाइट)'], price: 'डिज़ाइन के अनुसार' },
+                en: { title: 'Cove & Profile Light', desc: 'Hidden LED strip lights inside the ceiling that give the room a luxurious look.', includes: ['Profile Channel Fitting', 'LED Strip Installation', 'Driver Connection', 'Color Options (Warm/White)'], price: 'As per design' }
+            }
+        };
+
+        // --- Logic ---
+        let currentLang = 'hi';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'hi' ? 'en' : 'hi';
+            updateContent();
+        }
+
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+        }
+
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
+        // --- Modal Logic ---
+        function openServiceModal(serviceKey) {
+            const modal = document.getElementById('serviceModal');
+            const data = serviceDetails[serviceKey][currentLang];
+            
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalDesc').textContent = data.desc;
+            document.getElementById('modalPrice').textContent = data.price;
+            
+            const list = document.getElementById('modalIncludes');
+            list.innerHTML = '';
+            data.includes.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                list.appendChild(li);
+            });
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // --- Booking Logic ---
+        let formData = {};
+
+        function handleBooking(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const service = document.getElementById('c-service').value;
+            const msg = document.getElementById('c-msg').value;
+
+            if(!name || !phone) {
+                alert("Please fill Name and Phone number / कृपया नाम और मोबाइल नंबर भरें");
+                return;
+            }
+
+            formData = { name, phone, service, msg };
+            document.getElementById('contactOptionModal').style.display = 'flex';
+        }
+
+        function sendToWhatsapp() {
+            // Replace with your WhatsApp number
+            const ownerPhone = "919876543210"; 
+            const text = `*New Ceiling Inquiry*\n\nName: ${formData.name}\nPhone: ${formData.phone}\nService: ${formData.service}\nDetails: ${formData.msg}`;
+            const url = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+            closeModal('contactOptionModal');
+        }
+
+        function sendToEmail() {
+            // Replace with your Email
+            const ownerEmail = "info@royalceiling.com";
+            const subject = `Ceiling Inquiry from ${formData.name}`;
+            const body = `Name: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AService: ${formData.service}%0D%0ADetails: ${formData.msg}`;
+            window.location.href = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
+            closeModal('contactOptionModal');
+        }
+    </script>
+</body>
+</html>
